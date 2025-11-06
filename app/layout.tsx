@@ -3,7 +3,7 @@ import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Shiplog - AI-Powered Changelog Generator",
+  title: "ShipNotes - AI-Powered Changelog Generator",
   description: "Turn your messy Git commits into beautiful, professional changelogs in seconds with AI",
 };
 

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { generateTechnicalChangelog, generateUserFriendlyChangelog } from '@/lib/changelog-generator'
-import { createChangelog, trackUsage, getUserUsageCount } from '@/lib/supabase'
+import { createChangelog, trackUsage, getUserUsageCount, getUser } from '@/lib/supabase'
 import { GitHubCommit } from '@/lib/github'
 
 export async function POST(request: NextRequest) {
@@ -20,13 +20,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Invalid commits data' }, { status: 400 })
     }
 
-    // Check usage limits (trial users get 3 generations)
-    const usageCount = await getUserUsageCount(userId, 'generate')
+    // Get user to check subscription status
+    const user = await getUser(userId)
 
-    if (usageCount >= 3) {
-      // In production, check subscription status
+    // Check usage limits (trial users get 3 generations, Pro users get unlimited)
+    const usageCount = await getUserUsageCount(userId, 'generate')
+    const isPro = user.subscription_status === 'pro'
+
+    if (!isPro && usageCount >= 3) {
       return NextResponse.json(
-        { error: 'Usage limit reached. Please upgrade to Pro.' },
+        { error: 'Usage limit reached. Please upgrade to Pro for unlimited changelogs.', needsUpgrade: true },
         { status: 403 }
       )
     }
@@ -52,7 +55,8 @@ export async function POST(request: NextRequest) {
       technical: technicalChangelog,
       userFriendly: userFriendlyChangelog,
       usageCount: usageCount + 1,
-      remainingGenerations: 3 - (usageCount + 1),
+      remainingGenerations: isPro ? -1 : 3 - (usageCount + 1), // -1 indicates unlimited
+      isPro,
     })
   } catch (error) {
     console.error('Error generating changelog:', error)

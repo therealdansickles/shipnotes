@@ -78,6 +78,17 @@ export async function getUserByGithubId(githubId: string) {
   return data as User | null
 }
 
+export async function getUserByEmail(email: string) {
+  const { data, error } = await supabase
+    .from('users')
+    .select('*')
+    .eq('email', email)
+    .single()
+
+  if (error && error.code !== 'PGRST116') throw error
+  return data as User | null
+}
+
 export async function createUser(userData: Omit<User, 'id' | 'created_at'>) {
   const { data, error } = await supabase
     .from('users')
@@ -129,4 +140,19 @@ export async function getUserUsageCount(userId: string, action: Usage['action'])
 
   if (error) throw error
   return count || 0
+}
+
+export async function updateUserSubscriptionStatus(
+  email: string,
+  subscriptionStatus: User['subscription_status']
+) {
+  const { data, error } = await supabase
+    .from('users')
+    .update({ subscription_status: subscriptionStatus })
+    .eq('email', email)
+    .select()
+    .single()
+
+  if (error) throw error
+  return data as User
 }

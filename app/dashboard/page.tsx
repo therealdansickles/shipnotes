@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import { Sparkles, Star, GitBranch, Clock, Search } from 'lucide-react'
+import { UpgradeButton } from '@/components/ui/upgrade-button'
+import { Sparkles, Star, GitBranch, Clock, Search, Crown } from 'lucide-react'
 import Link from 'next/link'
 
 type Repo = {
@@ -21,14 +22,23 @@ type Repo = {
   private: boolean
 }
 
+type User = {
+  id: string
+  github_username: string
+  email: string
+  subscription_status: 'trial' | 'pro' | 'expired'
+}
+
 export default function Dashboard() {
   const [repos, setRepos] = useState<Repo[]>([])
   const [filteredRepos, setFilteredRepos] = useState<Repo[]>([])
   const [loading, setLoading] = useState(true)
   const [searchQuery, setSearchQuery] = useState('')
+  const [user, setUser] = useState<User | null>(null)
 
   useEffect(() => {
     fetchRepos()
+    fetchUser()
   }, [])
 
   useEffect(() => {
@@ -62,6 +72,19 @@ export default function Dashboard() {
     }
   }
 
+  const fetchUser = async () => {
+    try {
+      const response = await fetch('/api/user')
+
+      if (response.ok) {
+        const data = await response.json()
+        setUser(data)
+      }
+    } catch (error) {
+      console.error('Error fetching user:', error)
+    }
+  }
+
   const formatDate = (dateString: string) => {
     const date = new Date(dateString)
     return new Intl.RelativeTimeFormat('en', { numeric: 'auto' }).format(
@@ -77,11 +100,18 @@ export default function Dashboard() {
         <div className="flex justify-between items-center mb-8">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80">
             <Sparkles className="h-6 w-6" />
-            <span className="text-xl font-bold">Shiplog</span>
+            <span className="text-xl font-bold">ShipNotes</span>
           </Link>
-          <Button variant="outline" size="sm">
-            Account
-          </Button>
+          <div className="flex items-center gap-3">
+            {user?.subscription_status === 'pro' ? (
+              <div className="flex items-center gap-2 bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 border border-yellow-500/50 px-4 py-2 rounded-lg">
+                <Crown className="h-4 w-4 text-yellow-500" />
+                <span className="text-sm font-semibold text-yellow-500">Pro Member</span>
+              </div>
+            ) : (
+              <UpgradeButton variant="default" size="sm" />
+            )}
+          </div>
         </div>
 
         {/* Title & Search */}

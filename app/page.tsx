@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
+import { UpgradeButton } from "@/components/ui/upgrade-button"
 import { Github, Sparkles, FileText, Zap, Clock, TrendingUp } from "lucide-react"
 import Link from "next/link"
 
@@ -11,7 +12,7 @@ export default function LandingPage() {
         <nav className="flex justify-between items-center mb-20">
           <div className="flex items-center gap-2">
             <Sparkles className="h-6 w-6" />
-            <span className="text-xl font-bold">Shiplog</span>
+            <span className="text-xl font-bold">ShipNotes</span>
           </div>
           <Link href="/api/auth/github">
             <Button variant="outline" size="sm">
@@ -182,12 +183,12 @@ export default function LandingPage() {
         <div className="mb-32">
           <h2 className="text-3xl font-bold text-center mb-12">Simple, transparent pricing</h2>
           <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <Card className="p-8">
-              <CardContent className="pt-6">
+            <Card className="p-8 flex flex-col">
+              <CardContent className="pt-6 flex-1 flex flex-col">
                 <h3 className="text-2xl font-bold mb-2">Free Trial</h3>
                 <div className="text-4xl font-bold mb-4">$0</div>
                 <p className="text-muted-foreground mb-6">Perfect to try it out</p>
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-8 flex-1">
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
                     <span>3 changelog generations</span>
@@ -201,23 +202,25 @@ export default function LandingPage() {
                     <span>30 days of commits</span>
                   </li>
                 </ul>
-                <Button variant="outline" className="w-full">
-                  Start Free
-                </Button>
+                <Link href="/api/auth/github" className="w-full">
+                  <Button variant="outline" className="w-full">
+                    Start Free
+                  </Button>
+                </Link>
               </CardContent>
             </Card>
 
-            <Card className="p-8 border-primary border-2 relative">
+            <Card className="p-8 border-primary border-2 relative flex flex-col">
               <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold">
                 Most Popular
               </div>
-              <CardContent className="pt-6">
+              <CardContent className="pt-6 flex-1 flex flex-col">
                 <h3 className="text-2xl font-bold mb-2">Pro</h3>
                 <div className="text-4xl font-bold mb-4">
                   $29<span className="text-lg text-muted-foreground">/month</span>
                 </div>
                 <p className="text-muted-foreground mb-6">Ship faster, forever</p>
-                <ul className="space-y-3 mb-8">
+                <ul className="space-y-3 mb-8 flex-1">
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
                     <span className="font-semibold">Unlimited changelogs</span>
@@ -235,9 +238,7 @@ export default function LandingPage() {
                     <span>Priority support</span>
                   </li>
                 </ul>
-                <Button className="w-full">
-                  Start Pro Trial
-                </Button>
+                <UpgradeButton className="w-full" showIcon={false} />
               </CardContent>
             </Card>
           </div>
@@ -266,7 +267,7 @@ export default function LandingPage() {
 
         {/* Footer */}
         <footer className="mt-20 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>© 2024 Shiplog. Ship faster, look professional.</p>
+          <p>© 2025 dpop Studios. Ship faster, build better.</p>
         </footer>
       </div>
     </div>

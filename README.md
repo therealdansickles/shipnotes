@@ -1,4 +1,4 @@
-# Shiplog - AI-Powered Changelog Generator
+# ShipNotes - AI-Powered Changelog Generator
 
 Turn your messy Git commits into beautiful, professional changelogs in seconds with AI.
 
@@ -34,7 +34,7 @@ Turn your messy Git commits into beautiful, professional changelogs in seconds w
 
 ```bash
 git clone <your-repo-url>
-cd shiplog
+cd shipnotes
 npm install
 ```
 
@@ -85,14 +85,29 @@ CREATE INDEX idx_usage_action ON usage(action);
 
 ### 3. Set Up GitHub OAuth
 
+**IMPORTANT:** You need to set up TWO OAuth apps - one for development and one for production.
+
+#### Development OAuth App
+
 1. Go to GitHub → Settings → Developer settings → OAuth Apps
 2. Click "New OAuth App"
 3. Fill in:
-   - **Application name**: Shiplog
-   - **Homepage URL**: `http://localhost:3000` (for development)
+   - **Application name**: ShipNotes (Development)
+   - **Homepage URL**: `http://localhost:3000`
    - **Authorization callback URL**: `http://localhost:3000/api/auth/callback`
 4. Click "Register application"
 5. Copy your Client ID and generate a Client Secret
+
+#### Production OAuth App
+
+1. Create another OAuth App for production
+2. Fill in:
+   - **Application name**: ShipNotes
+   - **Homepage URL**: `https://shipnotes.xyz`
+   - **Authorization callback URL**: `https://shipnotes.xyz/api/auth/callback`
+3. Copy the production Client ID and Client Secret
+
+**Note:** You'll use the development credentials in `.env.local` and production credentials in Vercel environment variables.
 
 ### 4. Get OpenAI API Key
 
@@ -132,7 +147,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 ## Project Structure
 
 ```
-shiplog/
+shipnotes/
 ├── app/
 │   ├── api/                    # API routes
 │   │   ├── auth/               # GitHub OAuth
@@ -215,6 +230,27 @@ Contributions are welcome! Please feel free to submit a Pull Request.
 
 MIT License - feel free to use this project for your own purposes.
 
+## Troubleshooting
+
+### GitHub OAuth "redirect_uri not associated" Error
+
+If you see a GitHub error saying "The redirect_uri is not associated with this application":
+
+1. Go to your GitHub OAuth App settings (GitHub → Settings → Developer settings → OAuth Apps)
+2. Click on your ShipNotes app
+3. Make sure the **Authorization callback URL** matches exactly:
+   - For production: `https://shipnotes.xyz/api/auth/callback`
+   - For development: `http://localhost:3000/api/auth/callback`
+4. Save the changes
+5. Make sure you're using the correct `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` for the environment (dev vs production)
+
+### Stripe Webhook Not Working
+
+1. Make sure your webhook endpoint URL is correct: `https://shipnotes.xyz/api/stripe/webhook`
+2. Verify you've selected the correct events in Stripe dashboard
+3. Check that `STRIPE_WEBHOOK_SECRET` matches the signing secret from Stripe
+4. Look at webhook logs in Stripe dashboard for errors
+
 ## Support
 
 For issues or questions, please open an issue on GitHub.
@@ -222,3 +258,5 @@ For issues or questions, please open an issue on GitHub.
 ---
 
 **Built with ❤️ by developers, for developers. Ship faster!**
+
+Available at [shipnotes.xyz](https://shipnotes.xyz)

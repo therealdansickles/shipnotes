@@ -1,0 +1,51 @@
+<svg width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="1024" height="1024" fill="url(#gradient)"/>
+
+  <!-- Gradient Definition -->
+  <defs>
+    <linearGradient id="gradient" x1="0" y1="0" x2="1024" y2="1024" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#3B82F6"/>
+      <stop offset="100%" stop-color="#9333EA"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Document/Note -->
+  <rect x="280" y="200" width="464" height="500" rx="32" fill="white" opacity="0.95"/>
+
+  <!-- Lines representing notes -->
+  <line x1="360" y1="320" x2="664" y2="320" stroke="#6B7280" stroke-width="16" stroke-linecap="round"/>
+  <line x1="360" y1="400" x2="664" y2="400" stroke="#6B7280" stroke-width="16" stroke-linecap="round"/>
+  <line x1="360" y1="480" x2="560" y2="480" stroke="#6B7280" stroke-width="16" stroke-linecap="round"/>
+
+  <!-- Rocket -->
+  <g transform="translate(512, 600)">
+    <!-- Body -->
+    <path d="M 0,-120 L 30,-30 L 30,60 C 30,75 15,90 0,90 C -15,90 -30,75 -30,60 L -30,-30 Z" fill="#1E3A8A"/>
+    <path d="M 0,-120 L 25,-30 L 25,60 C 25,73 13,85 0,85 C -13,85 -25,73 -25,60 L -25,-30 Z" fill="url(#gradient)"/>
+
+    <!-- Window -->
+    <circle cx="0" cy="-50" r="20" fill="white" opacity="0.9"/>
+    <circle cx="0" cy="-50" r="12" fill="#93C5FD"/>
+
+    <!-- Flames -->
+    <ellipse cx="-18" cy="90" rx="8" ry="24" fill="#F59E0B" opacity="0.8"/>
+    <ellipse cx="0" cy="95" rx="10" ry="30" fill="#EF4444" opacity="0.9"/>
+    <ellipse cx="18" cy="90" rx="8" ry="24" fill="#F59E0B" opacity="0.8"/>
+
+    <!-- Fins -->
+    <path d="M -30,30 L -60,60 L -30,60 Z" fill="#1E40AF"/>
+    <path d="M 30,30 L 60,60 L 30,60 Z" fill="#1E40AF"/>
+
+    <!-- Highlights -->
+    <ellipse cx="-8" cy="-70" rx="6" ry="12" fill="white" opacity="0.4"/>
+  </g>
+
+  <!-- Sparkles -->
+  <g opacity="0.8" fill="white">
+    <path d="M 760,280 L 770,300 L 790,310 L 770,320 L 760,340 L 750,320 L 730,310 L 750,300 Z"/>
+    <path d="M 240,380 L 246,392 L 258,398 L 246,404 L 240,416 L 234,404 L 222,398 L 234,392 Z"/>
+    <path d="M 800,560 L 808,576 L 824,584 L 808,592 L 800,608 L 792,592 L 776,584 L 792,576 Z"/>
+    <path d="M 220,620 L 226,632 L 238,638 L 226,644 L 220,656 L 214,644 L 202,638 L 214,632 Z"/>
+  </g>
+</svg>

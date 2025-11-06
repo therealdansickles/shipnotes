@@ -4,7 +4,8 @@ import { useEffect, useState } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { Sparkles, ArrowLeft, GitCommit, Copy, Download, Check } from 'lucide-react'
+import { UpgradeButton } from '@/components/ui/upgrade-button'
+import { Sparkles, ArrowLeft, GitCommit, Copy, Download, Check, Crown } from 'lucide-react'
 import Link from 'next/link'
 
 type Commit = {
@@ -33,6 +34,8 @@ export default function RepoPage() {
   const [copiedTech, setCopiedTech] = useState(false)
   const [copiedUser, setCopiedUser] = useState(false)
   const [remainingGenerations, setRemainingGenerations] = useState(3)
+  const [showUpgradePrompt, setShowUpgradePrompt] = useState(false)
+  const [isPro, setIsPro] = useState(false)
 
   useEffect(() => {
     fetchCommits()
@@ -95,8 +98,14 @@ export default function RepoPage() {
         setTechnicalChangelog(data.technical)
         setUserFriendlyChangelog(data.userFriendly)
         setRemainingGenerations(data.remainingGenerations)
+        setIsPro(data.isPro || false)
+        setShowUpgradePrompt(false)
       } else {
-        alert(data.error || 'Failed to generate changelog')
+        if (data.needsUpgrade) {
+          setShowUpgradePrompt(true)
+        } else {
+          alert(data.error || 'Failed to generate changelog')
+        }
       }
     } catch (error) {
       console.error('Error generating changelog:', error)
@@ -145,7 +154,7 @@ export default function RepoPage() {
           </Link>
           <Link href="/" className="flex items-center gap-2">
             <Sparkles className="h-6 w-6" />
-            <span className="text-xl font-bold">Shiplog</span>
+            <span className="text-xl font-bold">ShipNotes</span>
           </Link>
         </div>
 
@@ -257,13 +266,61 @@ export default function RepoPage() {
                   )}
                 </Button>
                 <p className="text-center text-sm text-muted-foreground mt-2">
-                  {remainingGenerations} free generations remaining
+                  {isPro ? (
+                    <span className="flex items-center justify-center gap-1 text-yellow-500">
+                      <Crown className="h-4 w-4" />
+                      Unlimited generations
+                    </span>
+                  ) : (
+                    `${remainingGenerations} free generations remaining`
+                  )}
                 </p>
               </div>
             </div>
 
             {/* Right: Changelog Output */}
             <div className="space-y-6">
+              {/* Upgrade Prompt */}
+              {showUpgradePrompt && (
+                <Card className="border-2 border-primary bg-gradient-to-br from-blue-500/10 to-purple-500/10">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Crown className="h-6 w-6 text-yellow-500" />
+                      Upgrade to ShipNotes Pro
+                    </CardTitle>
+                    <CardDescription>
+                      You've used all 3 free changelog generations. Upgrade to Pro for unlimited changelogs!
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-2 mb-6">
+                      <li className="flex items-center gap-2">
+                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                        <span>Unlimited changelog generations</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                        <span>AI-powered rewriting</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                        <span>Priority support</span>
+                      </li>
+                      <li className="flex items-center gap-2">
+                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                        <span className="font-semibold">Only $29/month</span>
+                      </li>
+                    </ul>
+                    <div className="flex gap-3">
+                      <UpgradeButton size="lg" className="flex-1" />
+                      <Button variant="outline" size="lg" onClick={() => setShowUpgradePrompt(false)}>
+                        Maybe Later
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+
               {/* Technical Changelog */}
               <Card>
                 <CardHeader>
