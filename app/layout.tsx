@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
+import { Footer } from "@/components/footer";
+import { CookieBanner } from "@/components/cookie-banner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -14,8 +16,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="dark">
-      <body className="antialiased">
-        {children}
+      <body className="antialiased flex flex-col min-h-screen">
+        <main className="flex-1">{children}</main>
+        <Footer />
+        <CookieBanner />
         <Analytics />
       </body>
     </html>
