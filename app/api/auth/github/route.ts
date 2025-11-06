@@ -1,6 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { rateLimit, rateLimitConfigs, createRateLimitResponse } from '@/lib/rate-limit'
 
 export async function GET(request: NextRequest) {
+  // Apply rate limiting to prevent auth abuse
+  const rateLimitResult = await rateLimit(request, rateLimitConfigs.auth, 'auth-github')
+
+  if (!rateLimitResult.success) {
+    return createRateLimitResponse(rateLimitResult)
+  }
+
   const clientId = process.env.GITHUB_CLIENT_ID
 
   if (!clientId) {

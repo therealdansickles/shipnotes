@@ -1,11 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Stripe from 'stripe'
 import { updateUserSubscriptionStatus, getUserByEmail } from '@/lib/supabase'
+import { logger } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
   // Initialize Stripe at runtime to avoid build-time errors
   if (!process.env.STRIPE_SECRET_KEY) {
-    console.error('STRIPE_SECRET_KEY not configured')
+    logger.error('STRIPE_SECRET_KEY not configured')
     return NextResponse.json(
       { error: 'Stripe not configured' },
       { status: 500 }
@@ -13,7 +14,7 @@ export async function POST(request: NextRequest) {
   }
 
   if (!process.env.STRIPE_WEBHOOK_SECRET) {
-    console.error('STRIPE_WEBHOOK_SECRET not configured')
+    logger.error('STRIPE_WEBHOOK_SECRET not configured')
     return NextResponse.json(
       { error: 'Webhook secret not configured' },
       { status: 500 }
@@ -41,7 +42,7 @@ export async function POST(request: NextRequest) {
   try {
     event = stripe.webhooks.constructEvent(body, signature, webhookSecret)
   } catch (err) {
-    console.error('Webhook signature verification failed:', err)
+    logger.error('Webhook signature verification failed', err)
     return NextResponse.json(
       { error: 'Webhook signature verification failed' },
       { status: 400 }
@@ -59,7 +60,7 @@ export async function POST(request: NextRequest) {
         if (customerEmail) {
           // Update user subscription status to 'pro'
           await updateUserSubscriptionStatus(customerEmail, 'pro')
-          console.log(`✅ Subscription activated for ${customerEmail}`)
+          logger.info('Subscription activated', { email: customerEmail })
         }
         break
       }
@@ -74,7 +75,7 @@ export async function POST(request: NextRequest) {
         if ('email' in customer && customer.email) {
           const status = subscription.status === 'active' ? 'pro' : 'trial'
           await updateUserSubscriptionStatus(customer.email, status)
-          console.log(`✅ Subscription ${subscription.status} for ${customer.email}`)
+          logger.info('Subscription updated', { email: customer.email, status: subscription.status })
         }
         break
       }
@@ -87,18 +88,18 @@ export async function POST(request: NextRequest) {
 
         if ('email' in customer && customer.email) {
           await updateUserSubscriptionStatus(customer.email, 'expired')
-          console.log(`❌ Subscription cancelled for ${customer.email}`)
+          logger.info('Subscription cancelled', { email: customer.email })
         }
         break
       }
 
       default:
-        console.log(`Unhandled event type: ${event.type}`)
+        logger.debug('Unhandled Stripe event type', { type: event.type })
     }
 
     return NextResponse.json({ received: true })
   } catch (error) {
-    console.error('Error processing webhook:', error)
+    logger.error('Error processing Stripe webhook', error)
     return NextResponse.json(
       { error: 'Webhook handler failed' },
       { status: 500 }

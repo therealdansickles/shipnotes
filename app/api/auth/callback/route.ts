@@ -1,8 +1,18 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getUserProfile } from '@/lib/github'
 import { getUserByGithubId, createUser } from '@/lib/supabase'
+import { rateLimit, rateLimitConfigs, createRateLimitResponse } from '@/lib/rate-limit'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
+  // Apply rate limiting to prevent callback abuse
+  const rateLimitResult = await rateLimit(request, rateLimitConfigs.auth, 'auth-callback')
+
+  if (!rateLimitResult.success) {
+    // For auth redirects, redirect to home with error
+    return NextResponse.redirect(new URL('/?error=rate_limit', request.url))
+  }
+
   const searchParams = request.nextUrl.searchParams
   const code = searchParams.get('code')
 
@@ -71,7 +81,7 @@ export async function GET(request: NextRequest) {
 
     return response
   } catch (error) {
-    console.error('Auth error:', error)
+    logger.error('Authentication failed', error)
     return NextResponse.redirect(new URL('/?error=auth_failed', request.url))
   }
 }

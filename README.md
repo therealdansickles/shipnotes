@@ -10,6 +10,20 @@ Turn your messy Git commits into beautiful, professional changelogs in seconds w
 - **Multiple Export Formats**: Download as Markdown, copy to clipboard, or export as HTML
 - **Usage Tracking**: Free tier includes 3 changelog generations
 - **Dark Mode UI**: Beautiful, developer-friendly interface
+- **Production-Ready Security**: Rate limiting, secure logging, RLS policies, and security headers
+
+## 🔒 Security Features
+
+ShipNotes is production-ready with enterprise-grade security:
+
+- ✅ **Rate Limiting**: Prevents API abuse with configurable limits per endpoint
+- ✅ **Row Level Security**: Database-level access control with Supabase RLS
+- ✅ **Secure Logging**: Automatic sanitization of sensitive data in logs
+- ✅ **Security Headers**: HSTS, CSP, XSS protection, and more
+- ✅ **Input Validation**: All user inputs are validated and sanitized
+- ✅ **Service Role Key**: Backend uses service role for secure database access
+
+📖 **See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment and security documentation.**
 
 ## Tech Stack
 
@@ -127,14 +141,28 @@ cp .env.example .env.local
 Fill in your credentials:
 
 ```env
+# Supabase
 NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
+# GitHub OAuth
 GITHUB_CLIENT_ID=your_github_oauth_client_id
 GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
 
+# OpenAI
 OPENAI_API_KEY=your_openai_api_key
+
+# Stripe (optional for development)
+STRIPE_SECRET_KEY=your_stripe_secret_key
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+NEXT_PUBLIC_STRIPE_PRO_PAYMENT_LINK=https://buy.stripe.com/your_link
+
+# App Configuration
+NEXT_PUBLIC_APP_URL=http://localhost:3000
 ```
+
+**Note**: For production deployment, see [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed setup instructions.
 
 ### 6. Run the Development Server
 

@@ -3,8 +3,17 @@ import { cookies } from 'next/headers'
 import { generateTechnicalChangelog, generateUserFriendlyChangelog } from '@/lib/changelog-generator'
 import { createChangelog, trackUsage, getUserUsageCount, getUser } from '@/lib/supabase'
 import { GitHubCommit } from '@/lib/github'
+import { rateLimit, rateLimitConfigs, createRateLimitResponse, addRateLimitHeaders } from '@/lib/rate-limit'
+import { logger } from '@/lib/logger'
 
 export async function POST(request: NextRequest) {
+  // Apply strict rate limiting (this endpoint uses OpenAI API)
+  const rateLimitResult = await rateLimit(request, rateLimitConfigs.strict, 'generate-changelog')
+
+  if (!rateLimitResult.success) {
+    return createRateLimitResponse(rateLimitResult)
+  }
+
   const cookieStore = await cookies()
   const userId = cookieStore.get('user_id')?.value
 
@@ -51,15 +60,18 @@ export async function POST(request: NextRequest) {
     // Track usage
     await trackUsage(userId, 'generate')
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       technical: technicalChangelog,
       userFriendly: userFriendlyChangelog,
       usageCount: usageCount + 1,
       remainingGenerations: isPro ? -1 : 3 - (usageCount + 1), // -1 indicates unlimited
       isPro,
     })
+
+    // Add rate limit headers to response
+    return addRateLimitHeaders(response, rateLimitResult)
   } catch (error) {
-    console.error('Error generating changelog:', error)
+    logger.error('Failed to generate changelog', error)
     return NextResponse.json(
       { error: 'Failed to generate changelog' },
       { status: 500 }

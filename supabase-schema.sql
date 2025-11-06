@@ -41,30 +41,34 @@ CREATE INDEX IF NOT EXISTS idx_usage_user_id ON public.usage(user_id);
 CREATE INDEX IF NOT EXISTS idx_usage_action ON public.usage(action);
 
 -- Enable Row Level Security (RLS)
+-- NOTE: Since this app uses cookie-based auth (not Supabase Auth), we enable RLS
+-- but configure it to deny all direct access. The backend uses a service role key
+-- to bypass RLS and enforces authorization at the application layer.
 ALTER TABLE public.users ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.changelogs ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.usage ENABLE ROW LEVEL SECURITY;
 
--- Create policies for users table
-CREATE POLICY "Users can read their own data" ON public.users
-  FOR SELECT USING (true);
+-- Drop existing policies if they exist
+DROP POLICY IF EXISTS "Users can read their own data" ON public.users;
+DROP POLICY IF EXISTS "Users can insert their own data" ON public.users;
+DROP POLICY IF EXISTS "Users can update their own data" ON public.users;
+DROP POLICY IF EXISTS "Users can read their own changelogs" ON public.changelogs;
+DROP POLICY IF EXISTS "Users can insert their own changelogs" ON public.changelogs;
+DROP POLICY IF EXISTS "Users can read their own usage" ON public.usage;
+DROP POLICY IF EXISTS "Users can insert their own usage" ON public.usage;
 
-CREATE POLICY "Users can insert their own data" ON public.users
-  FOR INSERT WITH CHECK (true);
+-- Create restrictive policies (deny all direct access)
+-- All database access should go through the API using the service role key
+-- which bypasses RLS and implements proper authorization checks
 
-CREATE POLICY "Users can update their own data" ON public.users
-  FOR UPDATE USING (true);
+-- Users table: No direct access allowed
+CREATE POLICY "Deny all direct access to users" ON public.users
+  FOR ALL USING (false);
 
--- Create policies for changelogs table
-CREATE POLICY "Users can read their own changelogs" ON public.changelogs
-  FOR SELECT USING (true);
+-- Changelogs table: No direct access allowed
+CREATE POLICY "Deny all direct access to changelogs" ON public.changelogs
+  FOR ALL USING (false);
 
-CREATE POLICY "Users can insert their own changelogs" ON public.changelogs
-  FOR INSERT WITH CHECK (true);
-
--- Create policies for usage table
-CREATE POLICY "Users can read their own usage" ON public.usage
-  FOR SELECT USING (true);
-
-CREATE POLICY "Users can insert their own usage" ON public.usage
-  FOR INSERT WITH CHECK (true);
+-- Usage table: No direct access allowed
+CREATE POLICY "Deny all direct access to usage" ON public.usage
+  FOR ALL USING (false);

@@ -1,5 +1,6 @@
 import { GitHubCommit, groupCommitsByType } from './github'
 import { rewriteChangelogWithAI } from './openai'
+import { logger } from './logger'
 
 // Type labels for better formatting
 const typeLabels: Record<string, string> = {
@@ -56,7 +57,7 @@ export async function generateUserFriendlyChangelog(
     const userFriendly = await rewriteChangelogWithAI(technicalChangelog)
     return userFriendly
   } catch (error) {
-    console.error('Error generating AI changelog:', error)
+    logger.error('Failed to generate AI-powered changelog, falling back to technical version', error)
     // Fallback to technical changelog if AI fails
     return technicalChangelog
   }

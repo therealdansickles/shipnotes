@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { getUser } from '@/lib/supabase'
+import { logger } from '@/lib/logger'
 
 export async function GET(request: NextRequest) {
   const cookieStore = await cookies()
@@ -22,7 +23,7 @@ export async function GET(request: NextRequest) {
       created_at: user.created_at,
     })
   } catch (error) {
-    console.error('Error fetching user:', error)
+    logger.error('Failed to fetch user from database', error)
     return NextResponse.json(
       { error: 'Failed to fetch user' },
       { status: 500 }
