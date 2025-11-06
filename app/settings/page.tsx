@@ -87,74 +87,74 @@ export default function SettingsPage() {
 
   return (
     <div className="min-h-screen dark">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="container mx-auto px-4 py-6 sm:py-8 max-w-4xl">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <Link href="/dashboard" className="flex items-center gap-2 hover:opacity-80">
-            <ArrowLeft className="h-5 w-5" />
-            <span>Back to Dashboard</span>
+        <div className="flex justify-between items-center mb-6 sm:mb-8">
+          <Link href="/dashboard" className="flex items-center gap-1 sm:gap-2 hover:opacity-80">
+            <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="text-sm sm:text-base">Back to Dashboard</span>
           </Link>
-          <Link href="/" className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6" />
-            <span className="text-xl font-bold">ShipNotes</span>
+          <Link href="/" className="flex items-center gap-1 sm:gap-2">
+            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+            <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
           </Link>
         </div>
 
-        <h1 className="text-4xl font-bold mb-8">Account Settings</h1>
+        <h1 className="text-3xl sm:text-4xl font-bold mb-6 sm:mb-8">Account Settings</h1>
 
         {/* Profile Card */}
-        <Card className="mb-6">
+        <Card className="mb-4 sm:mb-6">
           <CardHeader>
-            <CardTitle>Profile</CardTitle>
-            <CardDescription>Your account information from GitHub</CardDescription>
+            <CardTitle className="text-lg sm:text-xl">Profile</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Your account information from GitHub</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center gap-4 mb-6">
+            <div className="flex items-center gap-3 sm:gap-4 mb-4 sm:mb-6">
               {user.avatar_url && (
                 <img
                   src={user.avatar_url}
                   alt={user.github_username}
-                  className="h-16 w-16 rounded-full"
+                  className="h-12 w-12 sm:h-16 sm:w-16 rounded-full flex-shrink-0"
                 />
               )}
-              <div>
-                <p className="font-semibold text-lg">{user.github_username}</p>
-                <p className="text-sm text-muted-foreground">{user.email}</p>
+              <div className="min-w-0">
+                <p className="font-semibold text-base sm:text-lg truncate">{user.github_username}</p>
+                <p className="text-xs sm:text-sm text-muted-foreground truncate">{user.email}</p>
               </div>
             </div>
-            <div className="text-sm text-muted-foreground">
+            <div className="text-xs sm:text-sm text-muted-foreground">
               <p>Member since: {new Date(user.created_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
             </div>
           </CardContent>
         </Card>
 
         {/* Subscription Card */}
-        <Card className="mb-6">
+        <Card className="mb-4 sm:mb-6">
           <CardHeader>
-            <CardTitle>Subscription</CardTitle>
-            <CardDescription>Manage your ShipNotes subscription</CardDescription>
+            <CardTitle className="text-lg sm:text-xl">Subscription</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Manage your ShipNotes subscription</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div>
                 <div className="flex items-center gap-2 mb-2">
                   {user.subscription_status === 'pro' ? (
                     <>
-                      <Crown className="h-5 w-5 text-yellow-500" />
-                      <span className="font-semibold text-lg">ShipNotes Pro</span>
+                      <Crown className="h-4 w-4 sm:h-5 sm:w-5 text-yellow-500" />
+                      <span className="font-semibold text-base sm:text-lg">ShipNotes Pro</span>
                     </>
                   ) : (
-                    <span className="font-semibold text-lg">Free Trial</span>
+                    <span className="font-semibold text-base sm:text-lg">Free Trial</span>
                   )}
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   {user.subscription_status === 'pro'
                     ? 'Unlimited changelog generations'
                     : 'Limited to 3 changelog generations'}
                 </p>
               </div>
               {user.subscription_status !== 'pro' && (
-                <UpgradeButton />
+                <UpgradeButton className="w-full sm:w-auto" />
               )}
             </div>
           </CardContent>
@@ -163,22 +163,22 @@ export default function SettingsPage() {
         {/* Danger Zone */}
         <Card className="border-destructive/50">
           <CardHeader>
-            <CardTitle className="text-destructive flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5" />
+            <CardTitle className="text-destructive flex items-center gap-2 text-lg sm:text-xl">
+              <AlertTriangle className="h-4 w-4 sm:h-5 sm:w-5" />
               Danger Zone
             </CardTitle>
-            <CardDescription>
+            <CardDescription className="text-xs sm:text-sm">
               Irreversible actions that affect your account
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               <div>
-                <h3 className="font-semibold mb-2">Delete Account</h3>
-                <p className="text-sm text-muted-foreground mb-4">
+                <h3 className="font-semibold mb-2 text-sm sm:text-base">Delete Account</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
                   Permanently delete your ShipNotes account and all associated data. This action cannot be undone.
                 </p>
-                <ul className="text-sm text-muted-foreground mb-4 space-y-1 list-disc pl-5">
+                <ul className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4 space-y-1 list-disc pl-5">
                   <li>All your generated changelogs will be permanently deleted</li>
                   <li>Your usage history will be removed</li>
                   <li>Your subscription will be cancelled (if applicable)</li>
@@ -189,25 +189,25 @@ export default function SettingsPage() {
                   <Button
                     variant="destructive"
                     onClick={() => setShowDeleteConfirm(true)}
-                    className="gap-2"
+                    className="gap-2 text-sm sm:text-base"
                   >
                     <Trash2 className="h-4 w-4" />
                     Delete Account
                   </Button>
                 ) : (
-                  <div className="border border-destructive rounded-lg p-4 bg-destructive/10">
-                    <p className="font-semibold mb-3 text-destructive">
+                  <div className="border border-destructive rounded-lg p-3 sm:p-4 bg-destructive/10">
+                    <p className="font-semibold mb-2 sm:mb-3 text-destructive text-sm sm:text-base">
                       Are you absolutely sure?
                     </p>
-                    <p className="text-sm text-muted-foreground mb-4">
+                    <p className="text-xs sm:text-sm text-muted-foreground mb-3 sm:mb-4">
                       This will permanently delete your account and all data. This action cannot be undone.
                     </p>
-                    <div className="flex gap-3">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                       <Button
                         variant="destructive"
                         onClick={handleDeleteAccount}
                         disabled={deleting}
-                        className="gap-2"
+                        className="gap-2 text-sm sm:text-base w-full sm:flex-1"
                       >
                         {deleting ? (
                           <>
@@ -225,6 +225,7 @@ export default function SettingsPage() {
                         variant="outline"
                         onClick={() => setShowDeleteConfirm(false)}
                         disabled={deleting}
+                        className="text-sm sm:text-base w-full sm:w-auto"
                       >
                         Cancel
                       </Button>
@@ -237,7 +238,7 @@ export default function SettingsPage() {
         </Card>
 
         {/* Support */}
-        <div className="mt-8 text-center text-sm text-muted-foreground">
+        <div className="mt-6 sm:mt-8 text-center text-xs sm:text-sm text-muted-foreground">
           <p>
             Need help? <Link href="/support" className="text-primary hover:underline">Contact Support</Link>
           </p>

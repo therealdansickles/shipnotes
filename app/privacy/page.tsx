@@ -9,22 +9,22 @@ export const metadata = {
 export default function PrivacyPage() {
   return (
     <div className="min-h-screen dark">
-      <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="container mx-auto px-4 py-6 sm:py-8 max-w-4xl">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <Link href="/" className="flex items-center gap-2 hover:opacity-80">
-            <Sparkles className="h-6 w-6" />
-            <span className="text-xl font-bold">ShipNotes</span>
+        <div className="flex items-center justify-between mb-6 sm:mb-8">
+          <Link href="/" className="flex items-center gap-1 sm:gap-2 hover:opacity-80">
+            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+            <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
           </Link>
         </div>
 
         {/* Content */}
         <div className="prose prose-invert max-w-none">
-          <h1 className="text-4xl font-bold mb-2">Privacy Policy</h1>
-          <p className="text-muted-foreground mb-8">Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+          <h1 className="text-3xl sm:text-4xl font-bold mb-2">Privacy Policy</h1>
+          <p className="text-sm sm:text-base text-muted-foreground mb-6 sm:mb-8">Last updated: {new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Introduction</h2>
+          <section className="mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Introduction</h2>
             <p className="text-muted-foreground leading-relaxed">
               ShipNotes (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our service at shipnotes.xyz.
             </p>
@@ -33,14 +33,14 @@ export default function PrivacyPage() {
             </p>
           </section>
 
-          <section className="mb-8">
-            <h2 className="text-2xl font-bold mb-4">Information We Collect</h2>
+          <section className="mb-6 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Information We Collect</h2>
 
-            <h3 className="text-xl font-semibold mb-3 mt-6">1. Information from GitHub</h3>
-            <p className="text-muted-foreground leading-relaxed">
+            <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 mt-4 sm:mt-6">1. Information from GitHub</h3>
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
               When you sign in with GitHub OAuth, we collect:
             </p>
-            <ul className="list-disc pl-6 text-muted-foreground space-y-2 mt-2">
+            <ul className="list-disc pl-5 sm:pl-6 text-sm sm:text-base text-muted-foreground space-y-2 mt-2">
               <li>Your GitHub username</li>
               <li>Your GitHub user ID</li>
               <li>Your email address associated with your GitHub account</li>
@@ -49,7 +49,7 @@ export default function PrivacyPage() {
               <li>Commit history from repositories you select</li>
             </ul>
 
-            <h3 className="text-xl font-semibold mb-3 mt-6">2. Usage Data</h3>
+            <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 mt-4 sm:mt-6">2. Usage Data</h3>
             <p className="text-muted-foreground leading-relaxed">
               We automatically collect:
             </p>
@@ -104,9 +104,9 @@ export default function PrivacyPage() {
             </p>
 
             <div className="space-y-4">
-              <div className="border border-border rounded-lg p-4">
-                <h3 className="text-lg font-semibold mb-2">GitHub</h3>
-                <p className="text-muted-foreground text-sm">
+              <div className="border border-border rounded-lg p-3 sm:p-4">
+                <h3 className="text-base sm:text-lg font-semibold mb-2">GitHub</h3>
+                <p className="text-muted-foreground text-xs sm:text-sm">
                   We use GitHub OAuth for authentication and to access your repository data. See GitHub&apos;s{' '}
                   <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement"
                      className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
@@ -115,9 +115,9 @@ export default function PrivacyPage() {
                 </p>
               </div>
 
-              <div className="border border-border rounded-lg p-4">
-                <h3 className="text-lg font-semibold mb-2">Supabase (Database)</h3>
-                <p className="text-muted-foreground text-sm">
+              <div className="border border-border rounded-lg p-3 sm:p-4">
+                <h3 className="text-base sm:text-lg font-semibold mb-2">Supabase (Database)</h3>
+                <p className="text-muted-foreground text-xs sm:text-sm">
                   We use Supabase to store your user profile, generated changelogs, and usage data. Data is encrypted at rest. See Supabase&apos;s{' '}
                   <a href="https://supabase.com/privacy"
                      className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
@@ -126,9 +126,9 @@ export default function PrivacyPage() {
                 </p>
               </div>
 
-              <div className="border border-border rounded-lg p-4">
-                <h3 className="text-lg font-semibold mb-2">OpenAI</h3>
-                <p className="text-muted-foreground text-sm">
+              <div className="border border-border rounded-lg p-3 sm:p-4">
+                <h3 className="text-base sm:text-lg font-semibold mb-2">OpenAI</h3>
+                <p className="text-muted-foreground text-xs sm:text-sm">
                   We send your commit messages to OpenAI&apos;s GPT-4 API for AI-powered rewriting. Commit messages are sent without personal identifiers. See OpenAI&apos;s{' '}
                   <a href="https://openai.com/policies/privacy-policy"
                      className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
@@ -137,9 +137,9 @@ export default function PrivacyPage() {
                 </p>
               </div>
 
-              <div className="border border-border rounded-lg p-4">
-                <h3 className="text-lg font-semibold mb-2">Stripe</h3>
-                <p className="text-muted-foreground text-sm">
+              <div className="border border-border rounded-lg p-3 sm:p-4">
+                <h3 className="text-base sm:text-lg font-semibold mb-2">Stripe</h3>
+                <p className="text-muted-foreground text-xs sm:text-sm">
                   We use Stripe for payment processing. Stripe handles all payment information securely. See Stripe&apos;s{' '}
                   <a href="https://stripe.com/privacy"
                      className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
@@ -148,9 +148,9 @@ export default function PrivacyPage() {
                 </p>
               </div>
 
-              <div className="border border-border rounded-lg p-4">
-                <h3 className="text-lg font-semibold mb-2">Vercel (Hosting)</h3>
-                <p className="text-muted-foreground text-sm">
+              <div className="border border-border rounded-lg p-3 sm:p-4">
+                <h3 className="text-base sm:text-lg font-semibold mb-2">Vercel (Hosting)</h3>
+                <p className="text-muted-foreground text-xs sm:text-sm">
                   Our service is hosted on Vercel. They may collect analytics data. See Vercel&apos;s{' '}
                   <a href="https://vercel.com/legal/privacy-policy"
                      className="text-primary hover:underline" target="_blank" rel="noopener noreferrer">
@@ -317,8 +317,8 @@ export default function PrivacyPage() {
         </div>
 
         {/* Back to Home */}
-        <div className="mt-12 text-center">
-          <Link href="/" className="text-primary hover:underline">
+        <div className="mt-8 sm:mt-12 text-center">
+          <Link href="/" className="text-sm sm:text-base text-primary hover:underline">
             ← Back to Home
           </Link>
         </div>

@@ -42,36 +42,42 @@ export default function LandingPage() {
     <div className="min-h-screen dark">
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         {/* Header */}
-        <nav className="flex justify-between items-center mb-20">
+        <nav className="flex justify-between items-center mb-12 sm:mb-20">
           <div className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6" />
-            <span className="text-xl font-bold">ShipNotes</span>
+            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+            <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
           </div>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleAuthClick}
-            disabled={isLoading}
-          >
-            <Github className="h-4 w-4 mr-2" />
-            {isLoading ? 'Loading...' : isLoggedIn ? 'Dashboard' : 'Login'}
-          </Button>
+          <div className="flex items-center gap-3">
+            <Link href="/support" className="text-sm text-muted-foreground hover:text-foreground hidden sm:block">
+              Support
+            </Link>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleAuthClick}
+              disabled={isLoading}
+            >
+              <Github className="h-4 w-4 mr-2" />
+              <span className="hidden sm:inline">{isLoading ? 'Loading...' : isLoggedIn ? 'Dashboard' : 'Login'}</span>
+              <span className="sm:hidden">{isLoading ? '...' : isLoggedIn ? 'Dashboard' : 'Login'}</span>
+            </Button>
+          </div>
         </nav>
 
         {/* Hero Section */}
-        <div className="text-center mb-20 mt-8">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
+        <div className="text-center mb-16 sm:mb-20 mt-4 sm:mt-8">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2">
             Ship Faster with
             <br />
             <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
               AI-Powered Changelogs
             </span>
           </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto px-4">
             Turn your messy Git commits into beautiful, professional changelogs in seconds.
             Your users deserve better than "fixed stuff" and "WIP".
           </p>
-          <div className="flex gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button
               size="lg"
               className="text-lg h-14 px-8 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 border-0"
@@ -82,14 +88,14 @@ export default function LandingPage() {
               {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Get Started with GitHub'}
             </Button>
             <Link href="/repo/therealdansickles/shipnotes">
-              <Button size="lg" variant="outline" className="text-lg h-14 px-8 border-2 hover:bg-accent">
+              <Button size="lg" variant="outline" className="text-lg h-14 px-8 border-2 hover:bg-accent w-full sm:w-auto">
                 View Example
               </Button>
             </Link>
           </div>
 
           {/* Social Proof */}
-          <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground">
+          <div className="flex items-center justify-center gap-4 text-sm text-muted-foreground px-4">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-2">
                 <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-background flex items-center justify-center text-white text-xs font-bold">
@@ -102,7 +108,7 @@ export default function LandingPage() {
                   S
                 </div>
               </div>
-              <span>500+ developers shipping faster</span>
+              <span className="text-center">500+ developers shipping faster</span>
             </div>
           </div>
         </div>
@@ -182,40 +188,40 @@ export default function LandingPage() {
         </div>
 
         {/* How It Works */}
-        <div className="mb-32">
-          <h2 className="text-3xl font-bold text-center mb-12">How it works</h2>
-          <div className="space-y-8 max-w-3xl mx-auto">
-            <div className="flex gap-6">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
+        <div className="mb-24 sm:mb-32">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-8 sm:mb-12">How it works</h2>
+          <div className="space-y-6 sm:space-y-8 max-w-3xl mx-auto px-4">
+            <div className="flex gap-4 sm:gap-6">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
                 1
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2">Connect GitHub</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">Connect GitHub</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Sign in with GitHub in one click. No complex setup required.
                 </p>
               </div>
             </div>
 
-            <div className="flex gap-6">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
+            <div className="flex gap-4 sm:gap-6">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
                 2
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2">Select Repository</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">Select Repository</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Choose any repo and we'll fetch your recent commits automatically.
                 </p>
               </div>
             </div>
 
-            <div className="flex gap-6">
-              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold">
+            <div className="flex gap-4 sm:gap-6">
+              <div className="flex-shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-primary text-primary-foreground flex items-center justify-center font-bold text-sm sm:text-base">
                 3
               </div>
               <div>
-                <h3 className="text-xl font-bold mb-2">Generate & Ship</h3>
-                <p className="text-muted-foreground">
+                <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">Generate & Ship</h3>
+                <p className="text-sm sm:text-base text-muted-foreground">
                   Get both technical and user-friendly versions. Copy, download, or share instantly.
                 </p>
               </div>
@@ -289,33 +295,28 @@ export default function LandingPage() {
         </div>
 
         {/* CTA */}
-        <div className="text-center">
-          <Card className="p-12 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2">
+        <div className="text-center px-4">
+          <Card className="p-8 sm:p-12 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2">
             <CardContent>
-              <h2 className="text-4xl font-bold mb-4">Ready to ship better changelogs?</h2>
-              <p className="text-xl text-muted-foreground mb-8">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Ready to ship better changelogs?</h2>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8">
                 Join hundreds of developers who are shipping faster
               </p>
               <Button
                 size="lg"
-                className="text-lg h-14 px-8"
+                className="text-base sm:text-lg h-12 sm:h-14 px-6 sm:px-8 w-full sm:w-auto"
                 onClick={handleAuthClick}
                 disabled={isLoading}
               >
                 <Github className="h-5 w-5 mr-2" />
                 {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Get Started Free'}
               </Button>
-              <p className="text-sm text-muted-foreground mt-4">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-4">
                 No credit card required • 3 free changelogs
               </p>
             </CardContent>
           </Card>
         </div>
-
-        {/* Footer */}
-        <footer className="mt-20 pt-8 border-t text-center text-sm text-muted-foreground">
-          <p>© 2025 dpop Studios. Ship faster, build better.</p>
-        </footer>
       </div>
     </div>
   )

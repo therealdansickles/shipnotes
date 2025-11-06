@@ -147,24 +147,24 @@ export default function RepoPage() {
     <div className="min-h-screen dark">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
-          <Link href="/dashboard" className="flex items-center gap-2 hover:opacity-80">
-            <ArrowLeft className="h-5 w-5" />
-            <span>Back to Dashboard</span>
+        <div className="flex justify-between items-center mb-6 sm:mb-8">
+          <Link href="/dashboard" className="flex items-center gap-1 sm:gap-2 hover:opacity-80">
+            <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+            <span className="text-sm sm:text-base">Back to Dashboard</span>
           </Link>
-          <Link href="/" className="flex items-center gap-2">
-            <Sparkles className="h-6 w-6" />
-            <span className="text-xl font-bold">ShipNotes</span>
+          <Link href="/" className="flex items-center gap-1 sm:gap-2">
+            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+            <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
           </Link>
         </div>
 
         {/* Repo Info */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-1 sm:mb-2 break-words">
             {owner} / {name}
           </h1>
-          <p className="text-muted-foreground">
-            Last 30 days of commits • {selectedCommits.length} of {commits.length} selected
+          <p className="text-sm sm:text-base text-muted-foreground">
+            Last 30 days • {selectedCommits.length} of {commits.length} selected
           </p>
         </div>
 
@@ -190,12 +190,13 @@ export default function RepoPage() {
             {/* Left: Commits List */}
             <div>
               <div className="flex justify-between items-center mb-4">
-                <h2 className="text-2xl font-bold">Commits</h2>
-                <div className="flex gap-2">
+                <h2 className="text-xl sm:text-2xl font-bold">Commits</h2>
+                <div className="flex gap-1 sm:gap-2">
                   <Button
                     variant="outline"
                     size="sm"
                     onClick={() => setSelectedCommits(commits)}
+                    className="text-xs sm:text-sm px-2 sm:px-4"
                   >
                     Select All
                   </Button>
@@ -203,6 +204,7 @@ export default function RepoPage() {
                     variant="outline"
                     size="sm"
                     onClick={() => setSelectedCommits([])}
+                    className="text-xs sm:text-sm px-2 sm:px-4"
                   >
                     Clear
                   </Button>
@@ -246,7 +248,7 @@ export default function RepoPage() {
                 ))}
               </div>
 
-              <div className="mt-6">
+              <div className="mt-4 sm:mt-6">
                 <Button
                   onClick={generateChangelog}
                   disabled={selectedCommits.length === 0 || generating}
@@ -256,19 +258,19 @@ export default function RepoPage() {
                   {generating ? (
                     <>
                       <div className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-                      Generating...
+                      <span className="text-sm sm:text-base">Generating...</span>
                     </>
                   ) : (
                     <>
-                      <Sparkles className="h-5 w-5 mr-2" />
-                      Generate Changelog
+                      <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
+                      <span className="text-sm sm:text-base">Generate Changelog</span>
                     </>
                   )}
                 </Button>
-                <p className="text-center text-sm text-muted-foreground mt-2">
+                <p className="text-center text-xs sm:text-sm text-muted-foreground mt-2">
                   {isPro ? (
                     <span className="flex items-center justify-center gap-1 text-yellow-500">
-                      <Crown className="h-4 w-4" />
+                      <Crown className="h-3 w-3 sm:h-4 sm:w-4" />
                       Unlimited generations
                     </span>
                   ) : (
@@ -279,41 +281,41 @@ export default function RepoPage() {
             </div>
 
             {/* Right: Changelog Output */}
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
               {/* Upgrade Prompt */}
               {showUpgradePrompt && (
                 <Card className="border-2 border-primary bg-gradient-to-br from-blue-500/10 to-purple-500/10">
                   <CardHeader>
-                    <CardTitle className="flex items-center gap-2">
-                      <Crown className="h-6 w-6 text-yellow-500" />
+                    <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                      <Crown className="h-5 w-5 sm:h-6 sm:w-6 text-yellow-500" />
                       Upgrade to ShipNotes Pro
                     </CardTitle>
-                    <CardDescription>
+                    <CardDescription className="text-sm">
                       You've used all 3 free changelog generations. Upgrade to Pro for unlimited changelogs!
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <ul className="space-y-2 mb-6">
-                      <li className="flex items-center gap-2">
-                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                    <ul className="space-y-2 mb-4 sm:mb-6">
+                      <li className="flex items-center gap-2 text-sm sm:text-base">
+                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs flex-shrink-0">✓</div>
                         <span>Unlimited changelog generations</span>
                       </li>
-                      <li className="flex items-center gap-2">
-                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                      <li className="flex items-center gap-2 text-sm sm:text-base">
+                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs flex-shrink-0">✓</div>
                         <span>AI-powered rewriting</span>
                       </li>
-                      <li className="flex items-center gap-2">
-                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                      <li className="flex items-center gap-2 text-sm sm:text-base">
+                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs flex-shrink-0">✓</div>
                         <span>Priority support</span>
                       </li>
-                      <li className="flex items-center gap-2">
-                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                      <li className="flex items-center gap-2 text-sm sm:text-base">
+                        <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs flex-shrink-0">✓</div>
                         <span className="font-semibold">Only $29/month</span>
                       </li>
                     </ul>
-                    <div className="flex gap-3">
+                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
                       <UpgradeButton size="lg" className="flex-1" />
-                      <Button variant="outline" size="lg" onClick={() => setShowUpgradePrompt(false)}>
+                      <Button variant="outline" size="lg" onClick={() => setShowUpgradePrompt(false)} className="w-full sm:w-auto">
                         Maybe Later
                       </Button>
                     </div>
@@ -324,26 +326,30 @@ export default function RepoPage() {
               {/* Technical Changelog */}
               <Card>
                 <CardHeader>
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
-                      <CardTitle>Technical Changelog</CardTitle>
-                      <CardDescription>Grouped by conventional commit types</CardDescription>
+                      <CardTitle className="text-lg sm:text-xl">Technical Changelog</CardTitle>
+                      <CardDescription className="text-xs sm:text-sm">Grouped by conventional commit types</CardDescription>
                     </div>
                     {technicalChangelog && (
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 w-full sm:w-auto">
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => copyToClipboard(technicalChangelog, setCopiedTech)}
+                          className="flex-1 sm:flex-none"
                         >
                           {copiedTech ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                          <span className="ml-2 sm:hidden">Copy</span>
                         </Button>
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => downloadChangelog(technicalChangelog, 'CHANGELOG.md')}
+                          className="flex-1 sm:flex-none"
                         >
                           <Download className="h-4 w-4" />
+                          <span className="ml-2 sm:hidden">Download</span>
                         </Button>
                       </div>
                     )}
@@ -351,12 +357,12 @@ export default function RepoPage() {
                 </CardHeader>
                 <CardContent>
                   {!technicalChangelog && (
-                    <p className="text-muted-foreground text-center py-8">
+                    <p className="text-muted-foreground text-center py-6 sm:py-8 text-sm">
                       Generate a changelog to see the output
                     </p>
                   )}
                   {technicalChangelog && (
-                    <pre className="text-sm bg-background p-4 rounded border max-h-[400px] overflow-y-auto whitespace-pre-wrap">
+                    <pre className="text-xs sm:text-sm bg-background p-3 sm:p-4 rounded border max-h-[300px] sm:max-h-[400px] overflow-y-auto whitespace-pre-wrap">
                       {technicalChangelog}
                     </pre>
                   )}
@@ -366,29 +372,33 @@ export default function RepoPage() {
               {/* User-Friendly Changelog */}
               <Card>
                 <CardHeader>
-                  <div className="flex justify-between items-center">
+                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
-                      <CardTitle className="flex items-center gap-2">
+                      <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
                         User-Friendly Version
-                        <Sparkles className="h-5 w-5 text-purple-400" />
+                        <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-purple-400" />
                       </CardTitle>
-                      <CardDescription>AI-rewritten for your users</CardDescription>
+                      <CardDescription className="text-xs sm:text-sm">AI-rewritten for your users</CardDescription>
                     </div>
                     {userFriendlyChangelog && (
-                      <div className="flex gap-2">
+                      <div className="flex gap-2 w-full sm:w-auto">
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => copyToClipboard(userFriendlyChangelog, setCopiedUser)}
+                          className="flex-1 sm:flex-none"
                         >
                           {copiedUser ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                          <span className="ml-2 sm:hidden">Copy</span>
                         </Button>
                         <Button
                           variant="outline"
                           size="sm"
                           onClick={() => downloadChangelog(userFriendlyChangelog, 'RELEASE_NOTES.md')}
+                          className="flex-1 sm:flex-none"
                         >
                           <Download className="h-4 w-4" />
+                          <span className="ml-2 sm:hidden">Download</span>
                         </Button>
                       </div>
                     )}
@@ -396,12 +406,12 @@ export default function RepoPage() {
                 </CardHeader>
                 <CardContent>
                   {!userFriendlyChangelog && (
-                    <p className="text-muted-foreground text-center py-8">
+                    <p className="text-muted-foreground text-center py-6 sm:py-8 text-sm">
                       Generate a changelog to see the AI-powered version
                     </p>
                   )}
                   {userFriendlyChangelog && (
-                    <pre className="text-sm bg-background p-4 rounded border max-h-[400px] overflow-y-auto whitespace-pre-wrap">
+                    <pre className="text-xs sm:text-sm bg-background p-3 sm:p-4 rounded border max-h-[300px] sm:max-h-[400px] overflow-y-auto whitespace-pre-wrap">
                       {userFriendlyChangelog}
                     </pre>
                   )}

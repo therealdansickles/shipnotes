@@ -97,16 +97,19 @@ export default function Dashboard() {
     <div className="min-h-screen dark">
       <div className="container mx-auto px-4 py-8 max-w-7xl">
         {/* Header */}
-        <div className="flex justify-between items-center mb-8">
+        <div className="flex justify-between items-center mb-6 sm:mb-8">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80">
-            <Sparkles className="h-6 w-6" />
-            <span className="text-xl font-bold">ShipNotes</span>
+            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+            <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link href="/settings" className="text-sm text-muted-foreground hover:text-foreground hidden sm:block">
+              Settings
+            </Link>
             {user?.subscription_status === 'pro' ? (
-              <div className="flex items-center gap-2 bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 border border-yellow-500/50 px-4 py-2 rounded-lg">
-                <Crown className="h-4 w-4 text-yellow-500" />
-                <span className="text-sm font-semibold text-yellow-500">Pro Member</span>
+              <div className="flex items-center gap-1 sm:gap-2 bg-gradient-to-r from-yellow-500/20 to-yellow-600/20 border border-yellow-500/50 px-2 sm:px-4 py-1 sm:py-2 rounded-lg">
+                <Crown className="h-3 w-3 sm:h-4 sm:w-4 text-yellow-500" />
+                <span className="text-xs sm:text-sm font-semibold text-yellow-500">Pro</span>
               </div>
             ) : (
               <UpgradeButton variant="default" size="sm" />
@@ -115,9 +118,9 @@ export default function Dashboard() {
         </div>
 
         {/* Title & Search */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold mb-2">Your Repositories</h1>
-          <p className="text-muted-foreground mb-6">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-3xl sm:text-4xl font-bold mb-1 sm:mb-2">Your Repositories</h1>
+          <p className="text-sm sm:text-base text-muted-foreground mb-4 sm:mb-6">
             Select a repository to generate a changelog
           </p>
 
