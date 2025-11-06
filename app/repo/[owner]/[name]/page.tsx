@@ -250,7 +250,7 @@ export default function RepoPage() {
                 <Button
                   onClick={generateChangelog}
                   disabled={selectedCommits.length === 0 || generating}
-                  className="w-full"
+                  className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 border-0"
                   size="lg"
                 >
                   {generating ? (

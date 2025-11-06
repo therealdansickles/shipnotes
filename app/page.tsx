@@ -59,15 +59,12 @@ export default function LandingPage() {
         </nav>
 
         {/* Hero Section */}
-        <div className="text-center mb-20">
-          <div className="inline-block mb-4 px-4 py-2 bg-accent rounded-full text-sm text-muted-foreground">
-            Stop writing changelogs manually
-          </div>
+        <div className="text-center mb-20 mt-8">
           <h1 className="text-5xl md:text-7xl font-bold mb-6 leading-tight">
-            Ship faster with
+            Ship Faster with
             <br />
             <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-              AI-powered changelogs
+              AI-Powered Changelogs
             </span>
           </h1>
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -77,25 +74,33 @@ export default function LandingPage() {
           <div className="flex gap-4 justify-center mb-12">
             <Button
               size="lg"
-              className="text-lg h-14 px-8"
+              className="text-lg h-14 px-8 bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 border-0"
               onClick={handleAuthClick}
               disabled={isLoading}
             >
               <Github className="h-5 w-5 mr-2" />
               {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Get Started with GitHub'}
             </Button>
-            <Button size="lg" variant="outline" className="text-lg h-14 px-8">
-              View Example
-            </Button>
+            <Link href="/repo/therealdansickles/shipnotes">
+              <Button size="lg" variant="outline" className="text-lg h-14 px-8 border-2 hover:bg-accent">
+                View Example
+              </Button>
+            </Link>
           </div>
 
           {/* Social Proof */}
           <div className="flex items-center justify-center gap-8 text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
               <div className="flex -space-x-2">
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-background"></div>
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-background"></div>
-                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-background"></div>
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 border-2 border-background flex items-center justify-center text-white text-xs font-bold">
+                  A
+                </div>
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-purple-600 border-2 border-background flex items-center justify-center text-white text-xs font-bold">
+                  M
+                </div>
+                <div className="w-8 h-8 rounded-full bg-gradient-to-br from-pink-400 to-pink-600 border-2 border-background flex items-center justify-center text-white text-xs font-bold">
+                  S
+                </div>
               </div>
               <span>500+ developers shipping faster</span>
             </div>
@@ -108,7 +113,7 @@ export default function LandingPage() {
             <div className="grid md:grid-cols-2 gap-8">
               <div>
                 <div className="text-sm text-muted-foreground mb-2">BEFORE</div>
-                <div className="font-mono text-sm bg-background p-4 rounded-lg border space-y-2">
+                <div className="font-mono text-sm bg-background p-4 rounded-lg border space-y-2 min-h-[240px] flex flex-col justify-center">
                   <div className="text-red-400">• fix: button thing</div>
                   <div className="text-red-400">• update stuff</div>
                   <div className="text-red-400">• WIP</div>
@@ -120,7 +125,7 @@ export default function LandingPage() {
                 <div className="text-sm text-muted-foreground mb-2 flex items-center gap-2">
                   AFTER <Sparkles className="h-3 w-3" />
                 </div>
-                <div className="text-sm bg-background p-4 rounded-lg border space-y-3">
+                <div className="text-sm bg-background p-4 rounded-lg border space-y-3 min-h-[240px] flex flex-col justify-center">
                   <div>
                     <div className="text-green-400 font-semibold">✨ New Features</div>
                     <div className="text-muted-foreground ml-4">Added user authentication flow</div>
@@ -277,7 +282,7 @@ export default function LandingPage() {
                     <span>Priority support</span>
                   </li>
                 </ul>
-                <UpgradeButton className="w-full" showIcon={false} />
+                <UpgradeButton className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 border-0" showIcon={false} />
               </CardContent>
             </Card>
           </div>

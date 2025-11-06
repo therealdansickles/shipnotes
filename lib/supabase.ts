@@ -18,9 +18,7 @@ export function getSupabase() {
 
 // For backwards compatibility
 export const supabase = {
-  get from() {
-    return getSupabase().from
-  },
+  from: (table: string) => getSupabase().from(table),
   get auth() {
     return getSupabase().auth
   }
