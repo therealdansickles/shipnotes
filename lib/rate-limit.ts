@@ -39,7 +39,7 @@ function getStore(name: string): RateLimitStore {
 function getIdentifier(request: NextRequest): string {
   // Use IP address as identifier
   const forwarded = request.headers.get('x-forwarded-for')
-  const ip = forwarded ? forwarded.split(',')[0] : request.ip || 'unknown'
+  const ip = forwarded ? forwarded.split(',')[0] : 'unknown'
 
   // Also include user agent to prevent simple IP rotation
   const userAgent = request.headers.get('user-agent') || ''
