@@ -1,3 +1,7 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { UpgradeButton } from "@/components/ui/upgrade-button"
@@ -5,6 +9,35 @@ import { Github, Sparkles, FileText, Zap, Clock, TrendingUp } from "lucide-react
 import Link from "next/link"
 
 export default function LandingPage() {
+  const router = useRouter()
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    // Check if user is already logged in
+    const checkAuth = async () => {
+      try {
+        const response = await fetch('/api/user')
+        if (response.ok) {
+          setIsLoggedIn(true)
+        }
+      } catch (error) {
+        console.log('Not logged in')
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    checkAuth()
+  }, [])
+
+  const handleAuthClick = () => {
+    if (isLoggedIn) {
+      router.push('/dashboard')
+    } else {
+      router.push('/api/auth/github')
+    }
+  }
+
   return (
     <div className="min-h-screen dark">
       <div className="container mx-auto px-4 py-16 max-w-6xl">
@@ -14,12 +47,15 @@ export default function LandingPage() {
             <Sparkles className="h-6 w-6" />
             <span className="text-xl font-bold">ShipNotes</span>
           </div>
-          <Link href="/api/auth/github">
-            <Button variant="outline" size="sm">
-              <Github className="h-4 w-4 mr-2" />
-              Login
-            </Button>
-          </Link>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleAuthClick}
+            disabled={isLoading}
+          >
+            <Github className="h-4 w-4 mr-2" />
+            {isLoading ? 'Loading...' : isLoggedIn ? 'Dashboard' : 'Login'}
+          </Button>
         </nav>
 
         {/* Hero Section */}
@@ -39,12 +75,15 @@ export default function LandingPage() {
             Your users deserve better than "fixed stuff" and "WIP".
           </p>
           <div className="flex gap-4 justify-center mb-12">
-            <Link href="/api/auth/github">
-              <Button size="lg" className="text-lg h-14 px-8">
-                <Github className="h-5 w-5 mr-2" />
-                Get Started with GitHub
-              </Button>
-            </Link>
+            <Button
+              size="lg"
+              className="text-lg h-14 px-8"
+              onClick={handleAuthClick}
+              disabled={isLoading}
+            >
+              <Github className="h-5 w-5 mr-2" />
+              {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Get Started with GitHub'}
+            </Button>
             <Button size="lg" variant="outline" className="text-lg h-14 px-8">
               View Example
             </Button>
@@ -252,12 +291,15 @@ export default function LandingPage() {
               <p className="text-xl text-muted-foreground mb-8">
                 Join hundreds of developers who are shipping faster
               </p>
-              <Link href="/api/auth/github">
-                <Button size="lg" className="text-lg h-14 px-8">
-                  <Github className="h-5 w-5 mr-2" />
-                  Get Started Free
-                </Button>
-              </Link>
+              <Button
+                size="lg"
+                className="text-lg h-14 px-8"
+                onClick={handleAuthClick}
+                disabled={isLoading}
+              >
+                <Github className="h-5 w-5 mr-2" />
+                {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Get Started Free'}
+              </Button>
               <p className="text-sm text-muted-foreground mt-4">
                 No credit card required • 3 free changelogs
               </p>
