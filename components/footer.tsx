@@ -15,7 +15,7 @@ export function Footer() {
               <span className="font-bold">ShipNotes</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Turn your messy Git commits into beautiful, professional changelogs with AI.
+              Ship faster, build better.
             </p>
           </div>
 
@@ -62,7 +62,7 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:support@shipnotes.xyz"
+                  href="mailto:hello@dpopstudios.xyz"
                   className="hover:text-foreground transition-colors"
                 >
                   Email Us
@@ -91,10 +91,10 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="mt-8 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>© {currentYear} ShipNotes. All rights reserved.</p>
+          <p>© {currentYear} dpop Studios. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <a
-              href="https://twitter.com/shipnotes"
+              href="https://x.com/dpopstudios"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-foreground transition-colors"

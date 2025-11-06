@@ -43,10 +43,10 @@ export default function SupportPage() {
                   We typically respond within 24 hours (often much faster).
                 </p>
                 <a
-                  href="mailto:support@shipnotes.xyz"
+                  href="mailto:hello@dpopstudios.xyz"
                   className="inline-flex items-center gap-2 text-primary hover:underline font-medium text-sm break-all"
                 >
-                  support@shipnotes.xyz
+                  hello@dpopstudios.xyz
                 </a>
               </CardContent>
             </Card>
@@ -202,7 +202,7 @@ export default function SupportPage() {
               Can't find what you're looking for? Send us an email and we'll get back to you as soon as possible.
             </p>
             <a
-              href="mailto:support@shipnotes.xyz"
+              href="mailto:hello@dpopstudios.xyz"
               className="inline-flex items-center gap-2 text-primary hover:underline font-medium text-sm break-all"
             >
               Contact Support →

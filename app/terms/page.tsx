@@ -25,8 +25,8 @@ export default function TermsPage() {
 
           <section className="mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">1. Acceptance of Terms</h2>
-            <p className="text-muted-foreground leading-relaxed">
-              By accessing or using ShipNotes (&quot;the Service&quot;), you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, do not use the Service.
+            <p className="text-sm sm:text-base text-muted-foreground leading-relaxed">
+              By accessing or using ShipNotes (&quot;the Service&quot;), operated by dpop Studios LLC (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), you agree to be bound by these Terms of Service (&quot;Terms&quot;). If you do not agree to these Terms, do not use the Service.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
               We reserve the right to update these Terms at any time. Continued use of the Service after changes constitutes acceptance of the updated Terms.
@@ -102,7 +102,7 @@ export default function TermsPage() {
             <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 mt-4 sm:mt-6">4.4 Refund Policy</h3>
             <p className="text-muted-foreground leading-relaxed">
               We offer refunds within 14 days of your initial purchase if you are unsatisfied with the service. To request a refund, contact us at{' '}
-              <a href="mailto:support@shipnotes.xyz" className="text-primary hover:underline">support@shipnotes.xyz</a>. Refunds are not available for renewals.
+              <a href="mailto:hello@dpopstudios.xyz" className="text-primary hover:underline">hello@dpopstudios.xyz</a>. Refunds are not available for renewals.
             </p>
 
             <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 mt-4 sm:mt-6">4.5 Cancellation</h3>
@@ -268,7 +268,7 @@ export default function TermsPage() {
             <h3 className="text-lg sm:text-xl font-semibold mb-2 sm:mb-3 mt-4 sm:mt-6">14.2 Informal Resolution</h3>
             <p className="text-muted-foreground leading-relaxed">
               Before filing a claim, you agree to contact us at{' '}
-              <a href="mailto:support@shipnotes.xyz" className="text-primary hover:underline">support@shipnotes.xyz</a>{' '}
+              <a href="mailto:hello@dpopstudios.xyz" className="text-primary hover:underline">hello@dpopstudios.xyz</a>{' '}
               to attempt to resolve the dispute informally. We will attempt to resolve disputes in good faith within 30 days.
             </p>
 
@@ -326,10 +326,10 @@ export default function TermsPage() {
             </p>
             <div className="mt-4 p-3 sm:p-4 border border-border rounded-lg">
               <p className="text-xs sm:text-sm text-muted-foreground">
-                Email: <a href="mailto:legal@shipnotes.xyz" className="text-primary hover:underline break-all">legal@shipnotes.xyz</a>
+                Email: <a href="mailto:hello@dpopstudios.xyz" className="text-primary hover:underline break-all">hello@dpopstudios.xyz</a>
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground mt-2">
-                Support: <a href="mailto:support@shipnotes.xyz" className="text-primary hover:underline break-all">support@shipnotes.xyz</a>
+                Support: <a href="mailto:hello@dpopstudios.xyz" className="text-primary hover:underline break-all">hello@dpopstudios.xyz</a>
               </p>
               <p className="text-xs sm:text-sm text-muted-foreground mt-2">
                 Website: <a href="https://shipnotes.xyz" className="text-primary hover:underline break-all">https://shipnotes.xyz</a>
@@ -338,8 +338,11 @@ export default function TermsPage() {
           </section>
 
           <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-border">
-            <p className="text-xs sm:text-sm text-muted-foreground">
+            <p className="text-xs sm:text-sm text-muted-foreground mb-4">
               By using ShipNotes, you acknowledge that you have read, understood, and agree to be bound by these Terms of Service.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              ShipNotes is a product operated by dpop Studios LLC. These Terms constitute a binding agreement between you and dpop Studios LLC.
             </p>
           </div>
         </div>

@@ -26,7 +26,7 @@ export default function PrivacyPage() {
           <section className="mb-6 sm:mb-8">
             <h2 className="text-xl sm:text-2xl font-bold mb-3 sm:mb-4">Introduction</h2>
             <p className="text-muted-foreground leading-relaxed">
-              ShipNotes (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;) is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our service at shipnotes.xyz.
+              dpop Studios LLC, doing business as ShipNotes (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), is committed to protecting your privacy. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you use our service at shipnotes.xyz.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
               By using ShipNotes, you agree to the collection and use of information in accordance with this policy.
@@ -269,11 +269,11 @@ export default function PrivacyPage() {
             <p className="text-muted-foreground leading-relaxed">
               If you have questions about this Privacy Policy or want to exercise your rights, please contact us:
             </p>
-            <div className="mt-4 p-4 border border-border rounded-lg">
-              <p className="text-muted-foreground">
-                Email: <a href="mailto:privacy@shipnotes.xyz" className="text-primary hover:underline">privacy@shipnotes.xyz</a>
+            <div className="mt-4 p-3 sm:p-4 border border-border rounded-lg">
+              <p className="text-xs sm:text-sm text-muted-foreground">
+                Email: <a href="mailto:hello@dpopstudios.xyz" className="text-primary hover:underline break-all">hello@dpopstudios.xyz</a>
               </p>
-              <p className="text-muted-foreground mt-2">
+              <p className="text-xs sm:text-sm text-muted-foreground mt-2">
                 Support: <Link href="/support" className="text-primary hover:underline">Contact Form</Link>
               </p>
             </div>
@@ -308,10 +308,13 @@ export default function PrivacyPage() {
             </ul>
           </section>
 
-          <div className="mt-12 pt-8 border-t border-border">
-            <p className="text-sm text-muted-foreground">
+          <div className="mt-8 sm:mt-12 pt-6 sm:pt-8 border-t border-border">
+            <p className="text-xs sm:text-sm text-muted-foreground mb-4">
               This Privacy Policy is effective as of the date listed above. For questions or concerns, please reach out to us at{' '}
-              <a href="mailto:privacy@shipnotes.xyz" className="text-primary hover:underline">privacy@shipnotes.xyz</a>.
+              <a href="mailto:hello@dpopstudios.xyz" className="text-primary hover:underline break-all">hello@dpopstudios.xyz</a>.
+            </p>
+            <p className="text-xs text-muted-foreground">
+              ShipNotes is a product operated by dpop Studios LLC. This Privacy Policy is issued by dpop Studios LLC.
             </p>
           </div>
         </div>
