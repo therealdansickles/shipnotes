@@ -4,7 +4,8 @@ import { getSupabase, getUser } from '@/lib/supabase'
 
 // Admin email addresses - add your email here
 const ADMIN_EMAILS = [
-  'dan@dansickles.com',
+  '111297543+therealdansickles@users.noreply.github.com',
+  'therealdansickles@github.com', // Also allow the current email
   // Add more admin emails as needed
 ]
 
