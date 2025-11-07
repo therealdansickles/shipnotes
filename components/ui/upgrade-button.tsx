@@ -7,6 +7,7 @@ interface UpgradeButtonProps {
   size?: 'default' | 'sm' | 'lg'
   className?: string
   showIcon?: boolean
+  text?: string
 }
 
 export function UpgradeButton({
@@ -14,6 +15,7 @@ export function UpgradeButton({
   size = 'default',
   className = '',
   showIcon = true,
+  text = 'Upgrade to Pro',
 }: UpgradeButtonProps) {
   const paymentLink = process.env.NEXT_PUBLIC_STRIPE_PRO_PAYMENT_LINK || ''
 
@@ -21,7 +23,7 @@ export function UpgradeButton({
     <Link href={paymentLink} target="_blank" rel="noopener noreferrer">
       <Button variant={variant} size={size} className={className}>
         {showIcon && <Sparkles className="h-4 w-4 mr-2" />}
-        Upgrade to Pro
+        {text}
       </Button>
     </Link>
   )

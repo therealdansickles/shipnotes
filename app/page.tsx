@@ -177,55 +177,6 @@ export default function LandingPage() {
           </Card>
         </div>
 
-        {/* Who Uses ShipNotes */}
-        <div className="mb-32">
-          <h2 className="text-3xl font-bold text-center mb-4">Who Uses ShipNotes</h2>
-          <p className="text-lg text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
-            Modern teams ship too fast for traditional communication. ShipNotes bridges the gap.
-          </p>
-          <div className="grid md:grid-cols-2 gap-6">
-            <Card className="p-6 hover:border-primary transition-colors">
-              <CardContent className="pt-6">
-                <div className="text-4xl mb-4">🚀</div>
-                <h3 className="text-xl font-bold mb-2">Fast-Moving Startups</h3>
-                <p className="text-muted-foreground">
-                  Developers ship code. Non-technical founders need to understand what's happening. ShipNotes translates between both worlds instantly.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="p-6 hover:border-primary transition-colors">
-              <CardContent className="pt-6">
-                <div className="text-4xl mb-4">🎨</div>
-                <h3 className="text-xl font-bold mb-2">Creative Agencies</h3>
-                <p className="text-muted-foreground">
-                  Your developers speak code. Your creative directors speak design. ShipNotes speaks both, so everyone stays in sync on client projects.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="p-6 hover:border-primary transition-colors">
-              <CardContent className="pt-6">
-                <div className="text-4xl mb-4">📦</div>
-                <h3 className="text-xl font-bold mb-2">Product Teams</h3>
-                <p className="text-muted-foreground">
-                  Engineering ships features. Product and design need impact summaries. ShipNotes translates technical commits into product updates.
-                </p>
-              </CardContent>
-            </Card>
-
-            <Card className="p-6 hover:border-primary transition-colors">
-              <CardContent className="pt-6">
-                <div className="text-4xl mb-4">⛓️</div>
-                <h3 className="text-xl font-bold mb-2">Web3 Projects</h3>
-                <p className="text-muted-foreground">
-                  Core developers work in GitHub. Your community wants updates they can understand. ShipNotes bridges the technical gap.
-                </p>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-
         {/* Features */}
         <div className="mb-32">
           <h2 className="text-3xl font-bold text-center mb-12">One Input, Infinite Outputs</h2>
@@ -363,13 +314,13 @@ export default function LandingPage() {
                     <span>Custom date ranges</span>
                   </li>
                 </ul>
-                <UpgradeButton className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 border-0" showIcon={false} />
+                <UpgradeButton className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 border-0" showIcon={false} text="Upgrade to Starter" />
               </CardContent>
             </Card>
 
             <Card className="p-6 flex flex-col">
               <CardContent className="pt-6 flex-1 flex flex-col">
-                <h3 className="text-2xl font-bold mb-2">Growth</h3>
+                <h3 className="text-2xl font-bold mb-2">Pro</h3>
                 <div className="text-4xl font-bold mb-4">
                   $49<span className="text-lg text-muted-foreground">/month</span>
                 </div>
@@ -399,7 +350,7 @@ export default function LandingPage() {
         </div>
 
         {/* CTA */}
-        <div className="text-center px-4">
+        <div className="text-center px-4 mb-32">
           <Card className="p-8 sm:p-12 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2">
             <CardContent>
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Ready to speak everyone's language?</h2>
@@ -420,6 +371,55 @@ export default function LandingPage() {
               </p>
             </CardContent>
           </Card>
+        </div>
+
+        {/* Who Uses ShipNotes */}
+        <div className="mb-32">
+          <h2 className="text-3xl font-bold text-center mb-4">Who Uses ShipNotes</h2>
+          <p className="text-lg text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            Modern teams ship too fast for traditional communication. ShipNotes bridges the gap.
+          </p>
+          <div className="grid md:grid-cols-2 gap-6">
+            <Card className="p-6 hover:border-primary transition-colors">
+              <CardContent className="pt-6">
+                <div className="text-4xl mb-4">🚀</div>
+                <h3 className="text-xl font-bold mb-2">Fast-Moving Startups</h3>
+                <p className="text-muted-foreground">
+                  Developers ship code. Non-technical founders need to understand what's happening. ShipNotes translates between both worlds instantly.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="p-6 hover:border-primary transition-colors">
+              <CardContent className="pt-6">
+                <div className="text-4xl mb-4">🎨</div>
+                <h3 className="text-xl font-bold mb-2">Creative Agencies</h3>
+                <p className="text-muted-foreground">
+                  Your developers speak code. Your creative directors speak design. ShipNotes speaks both, so everyone stays in sync on client projects.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="p-6 hover:border-primary transition-colors">
+              <CardContent className="pt-6">
+                <div className="text-4xl mb-4">📦</div>
+                <h3 className="text-xl font-bold mb-2">Product Teams</h3>
+                <p className="text-muted-foreground">
+                  Engineering ships features. Product and design need impact summaries. ShipNotes translates technical commits into product updates.
+                </p>
+              </CardContent>
+            </Card>
+
+            <Card className="p-6 hover:border-primary transition-colors">
+              <CardContent className="pt-6">
+                <div className="text-4xl mb-4">⛓️</div>
+                <h3 className="text-xl font-bold mb-2">Web3 Projects</h3>
+                <p className="text-muted-foreground">
+                  Core developers work in GitHub. Your community wants updates they can understand. ShipNotes bridges the technical gap.
+                </p>
+              </CardContent>
+            </Card>
+          </div>
         </div>
       </div>
     </div>
