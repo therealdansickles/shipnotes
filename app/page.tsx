@@ -343,34 +343,10 @@ export default function LandingPage() {
                     <span className="text-muted-foreground/60">Coming: Slack/Discord</span>
                   </li>
                 </ul>
-                <UpgradeButton className="w-full" showIcon={false} />
+                <UpgradeButton className="w-full" showIcon={false} text="Upgrade to Pro" />
               </CardContent>
             </Card>
           </div>
-        </div>
-
-        {/* CTA */}
-        <div className="text-center px-4 mb-32">
-          <Card className="p-8 sm:p-12 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2">
-            <CardContent>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Ready to speak everyone's language?</h2>
-              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8">
-                Join fast-moving teams who translate their work instantly
-              </p>
-              <Button
-                size="lg"
-                className="text-base sm:text-lg h-12 sm:h-14 px-6 sm:px-8 w-full sm:w-auto"
-                onClick={handleAuthClick}
-                disabled={isLoading}
-              >
-                <Github className="h-5 w-5 mr-2" />
-                {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Start Translating for Free'}
-              </Button>
-              <p className="text-xs sm:text-sm text-muted-foreground mt-4">
-                No credit card required • 3 free translations to test
-              </p>
-            </CardContent>
-          </Card>
         </div>
 
         {/* Who Uses ShipNotes */}
@@ -420,6 +396,30 @@ export default function LandingPage() {
               </CardContent>
             </Card>
           </div>
+        </div>
+
+        {/* CTA */}
+        <div className="text-center px-4">
+          <Card className="p-8 sm:p-12 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2">
+            <CardContent>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Ready to speak everyone's language?</h2>
+              <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8">
+                Join fast-moving teams who translate their work instantly
+              </p>
+              <Button
+                size="lg"
+                className="text-base sm:text-lg h-12 sm:h-14 px-6 sm:px-8 w-full sm:w-auto"
+                onClick={handleAuthClick}
+                disabled={isLoading}
+              >
+                <Github className="h-5 w-5 mr-2" />
+                {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Start Translating for Free'}
+              </Button>
+              <p className="text-xs sm:text-sm text-muted-foreground mt-4">
+                No credit card required • 3 free translations to test
+              </p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
