@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import clientPromise from '@/lib/mongodb'
+import { getSupabase, getUser } from '@/lib/supabase'
 
 // Admin email addresses - add your email here
 const ADMIN_EMAILS = [
@@ -11,22 +11,14 @@ const ADMIN_EMAILS = [
 export async function GET(request: NextRequest) {
   try {
     const cookieStore = await cookies()
-    const sessionToken = cookieStore.get('session_token')?.value
+    const userId = cookieStore.get('user_id')?.value
 
-    if (!sessionToken) {
+    if (!userId) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
-    const client = await clientPromise
-    const db = client.db(process.env.MONGODB_DB)
-
-    // Get user from session
-    const session = await db.collection('sessions').findOne({ session_token: sessionToken })
-    if (!session) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-    }
-
-    const user = await db.collection('users').findOne({ github_id: session.github_id })
+    // Get user from database
+    const user = await getUser(userId)
     if (!user) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
@@ -37,13 +29,26 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'Forbidden - Admin access only' }, { status: 403 })
     }
 
-    // Fetch stats
-    const totalUsers = await db.collection('users').countDocuments()
-    const proUsers = await db.collection('users').countDocuments({ is_pro: true })
-    const freeUsers = totalUsers - proUsers
+    const supabase = getSupabase()
 
-    const changelogCollection = db.collection('changelogs')
-    const totalChangelogs = await changelogCollection.countDocuments()
+    // Fetch stats
+    // Total users
+    const { count: totalUsers } = await supabase
+      .from('users')
+      .select('*', { count: 'exact', head: true })
+
+    // Pro users
+    const { count: proUsers } = await supabase
+      .from('users')
+      .select('*', { count: 'exact', head: true })
+      .eq('subscription_status', 'pro')
+
+    const freeUsers = (totalUsers || 0) - (proUsers || 0)
+
+    // Total changelogs
+    const { count: totalChangelogs } = await supabase
+      .from('changelogs')
+      .select('*', { count: 'exact', head: true })
 
     // Get today's date range
     const today = new Date()
@@ -51,31 +56,37 @@ export async function GET(request: NextRequest) {
     const tomorrow = new Date(today)
     tomorrow.setDate(tomorrow.getDate() + 1)
 
-    const changelogsToday = await changelogCollection.countDocuments({
-      created_at: { $gte: today, $lt: tomorrow }
-    })
+    const { count: changelogsToday } = await supabase
+      .from('changelogs')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', today.toISOString())
+      .lt('created_at', tomorrow.toISOString())
 
     // Get this week's date range
     const weekStart = new Date(today)
     weekStart.setDate(weekStart.getDate() - weekStart.getDay())
-    const changelogsThisWeek = await changelogCollection.countDocuments({
-      created_at: { $gte: weekStart }
-    })
+
+    const { count: changelogsThisWeek } = await supabase
+      .from('changelogs')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', weekStart.toISOString())
 
     // Get this month's date range
     const monthStart = new Date(today.getFullYear(), today.getMonth(), 1)
-    const changelogsThisMonth = await changelogCollection.countDocuments({
-      created_at: { $gte: monthStart }
-    })
+
+    const { count: changelogsThisMonth } = await supabase
+      .from('changelogs')
+      .select('*', { count: 'exact', head: true })
+      .gte('created_at', monthStart.toISOString())
 
     return NextResponse.json({
-      totalUsers,
-      totalChangelogs,
-      proUsers,
+      totalUsers: totalUsers || 0,
+      totalChangelogs: totalChangelogs || 0,
+      proUsers: proUsers || 0,
       freeUsers,
-      changelogsToday,
-      changelogsThisWeek,
-      changelogsThisMonth,
+      changelogsToday: changelogsToday || 0,
+      changelogsThisWeek: changelogsThisWeek || 0,
+      changelogsThisMonth: changelogsThisMonth || 0,
     })
   } catch (error) {
     console.error('Admin stats error:', error)
