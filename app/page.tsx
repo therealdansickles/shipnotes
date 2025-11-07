@@ -41,6 +41,49 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen dark">
+      {/* Structured Data for SEO and AI Search */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "SoftwareApplication",
+            "name": "ShipNotes",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web",
+            "offers": {
+              "@type": "AggregateOffer",
+              "priceCurrency": "USD",
+              "lowPrice": "0",
+              "highPrice": "49",
+              "offerCount": "3"
+            },
+            "description": "AI-powered tool that translates git commits into updates everyone understands. Turn technical code changes into clear communication for developers, designers, executives, and investors.",
+            "url": "https://shipnotes.xyz",
+            "publisher": {
+              "@type": "Organization",
+              "name": "ShipNotes",
+              "logo": {
+                "@type": "ImageObject",
+                "url": "https://shipnotes.xyz/shipnotes-logo.png"
+              },
+              "sameAs": [
+                "https://twitter.com/ShipNotesXYZ",
+                "https://github.com/therealdansickles/shipnotes"
+              ]
+            },
+            "featureList": [
+              "AI-powered changelog generation",
+              "Multi-stakeholder translation",
+              "GitHub integration",
+              "Custom audience targeting",
+              "Automated release notes",
+              "Technical communication simplification"
+            ],
+            "keywords": "changelog generator, git commit translator, AI changelog, developer tools, release notes, stakeholder communication"
+          })
+        }}
+      />
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         {/* Header */}
         <nav className="flex justify-between items-center mb-12 sm:mb-20">
