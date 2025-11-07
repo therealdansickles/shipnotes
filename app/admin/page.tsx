@@ -14,6 +14,7 @@ type AdminStats = {
   indieUsers: number
   starterUsers: number
   proUsers: number
+  foundingUsers: number
   freeUsers: number
   changelogsToday: number
   changelogsThisWeek: number
@@ -25,7 +26,7 @@ type UserData = {
   github_username: string
   email: string
   avatar_url?: string
-  subscription_status: 'trial' | 'indie' | 'starter' | 'pro' | 'expired'
+  subscription_status: 'trial' | 'indie' | 'starter' | 'pro' | 'founding' | 'expired'
   created_at: string
   changelog_count: number
 }
@@ -90,7 +91,7 @@ export default function AdminPage() {
     }
   }
 
-  const updateUserSubscription = async (userId: string, newStatus: 'trial' | 'indie' | 'starter' | 'pro' | 'expired') => {
+  const updateUserSubscription = async (userId: string, newStatus: 'trial' | 'indie' | 'starter' | 'pro' | 'founding' | 'expired') => {
     setUpdatingUserId(userId)
     try {
       const response = await fetch(`/api/admin/users/${userId}`, {
@@ -135,6 +136,8 @@ export default function AdminPage() {
 
   const getStatusBadgeColor = (status: string) => {
     switch (status) {
+      case 'founding':
+        return 'bg-gradient-to-r from-yellow-500/20 to-orange-500/20 text-yellow-400 border border-yellow-500/30'
       case 'pro':
         return 'bg-yellow-500/20 text-yellow-500'
       case 'starter':
@@ -228,7 +231,7 @@ export default function AdminPage() {
             <CardContent>
               <div className="text-2xl font-bold">{stats?.totalUsers || 0}</div>
               <p className="text-xs text-muted-foreground mt-1">
-                {stats?.proUsers || 0} Pro • {stats?.starterUsers || 0} Starter • {stats?.indieUsers || 0} Indie • {stats?.freeUsers || 0} Free
+                {stats?.foundingUsers || 0} Founding • {stats?.proUsers || 0} Pro • {stats?.starterUsers || 0} Starter • {stats?.indieUsers || 0} Indie • {stats?.freeUsers || 0} Free
               </p>
             </CardContent>
           </Card>
@@ -253,10 +256,11 @@ export default function AdminPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">
-                {(stats?.indieUsers || 0) + (stats?.starterUsers || 0) + (stats?.proUsers || 0)}
+                {(stats?.foundingUsers || 0) + (stats?.indieUsers || 0) + (stats?.starterUsers || 0) + (stats?.proUsers || 0)}
               </div>
               <p className="text-xs text-muted-foreground mt-1">
                 ${(
+                  (stats?.foundingUsers || 0) * 12.42 +
                   (stats?.indieUsers || 0) * 15 +
                   (stats?.starterUsers || 0) * 29 +
                   (stats?.proUsers || 0) * 49
@@ -311,6 +315,39 @@ export default function AdminPage() {
             </CardContent>
           </Card>
         </div>
+
+        {/* Founding Member Tracker */}
+        <Card className="mb-8 bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border-yellow-500/30">
+          <CardHeader>
+            <div className="flex items-center gap-2">
+              <Crown className="h-5 w-5 text-yellow-500" />
+              <CardTitle>Founding Member Program</CardTitle>
+            </div>
+            <CardDescription>Limited to first 300 customers - $149/year for life</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              <div>
+                <div className="flex items-baseline gap-2 mb-2">
+                  <div className="text-4xl font-bold text-yellow-400">{stats?.foundingUsers || 0}</div>
+                  <div className="text-xl text-muted-foreground">/ 300</div>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {300 - (stats?.foundingUsers || 0)} spots remaining
+                </p>
+              </div>
+              <div className="w-full bg-accent rounded-full h-3 overflow-hidden">
+                <div
+                  className="h-full bg-gradient-to-r from-yellow-500 to-orange-500 transition-all duration-500"
+                  style={{ width: `${((stats?.foundingUsers || 0) / 300) * 100}%` }}
+                />
+              </div>
+              <p className="text-xs text-muted-foreground">
+                {((stats?.foundingUsers || 0) / 300 * 100).toFixed(1)}% claimed
+              </p>
+            </div>
+          </CardContent>
+        </Card>
 
         {/* Quick Actions */}
         <Card>
@@ -443,6 +480,15 @@ export default function AdminPage() {
                           className="flex-1 sm:flex-none"
                         >
                           Pro
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={user.subscription_status === 'founding' ? 'default' : 'outline'}
+                          onClick={() => updateUserSubscription(user.id, 'founding')}
+                          disabled={updatingUserId === user.id || user.subscription_status === 'founding'}
+                          className="flex-1 sm:flex-none bg-gradient-to-r from-yellow-500/10 to-orange-500/10 border-yellow-500/50 hover:border-yellow-500"
+                        >
+                          Founding
                         </Button>
                         <Button
                           size="sm"
