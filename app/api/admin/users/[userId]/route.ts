@@ -39,9 +39,9 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
     const body = await request.json()
     const { subscription_status } = body
 
-    if (!['trial', 'pro', 'expired'].includes(subscription_status)) {
+    if (!['trial', 'starter', 'pro', 'expired'].includes(subscription_status)) {
       return NextResponse.json(
-        { error: 'Invalid subscription status. Must be trial, pro, or expired' },
+        { error: 'Invalid subscription status. Must be trial, starter, pro, or expired' },
         { status: 400 }
       )
     }

@@ -23,7 +23,7 @@ type UserData = {
   github_username: string
   email: string
   avatar_url?: string
-  subscription_status: 'trial' | 'pro' | 'expired'
+  subscription_status: 'trial' | 'starter' | 'pro' | 'expired'
   created_at: string
   changelog_count: number
 }
@@ -88,7 +88,7 @@ export default function AdminPage() {
     }
   }
 
-  const updateUserSubscription = async (userId: string, newStatus: 'trial' | 'pro' | 'expired') => {
+  const updateUserSubscription = async (userId: string, newStatus: 'trial' | 'starter' | 'pro' | 'expired') => {
     setUpdatingUserId(userId)
     try {
       const response = await fetch(`/api/admin/users/${userId}`, {
@@ -135,6 +135,8 @@ export default function AdminPage() {
     switch (status) {
       case 'pro':
         return 'bg-yellow-500/20 text-yellow-500'
+      case 'starter':
+        return 'bg-green-500/20 text-green-500'
       case 'trial':
         return 'bg-blue-500/20 text-blue-500'
       case 'expired':
@@ -242,7 +244,7 @@ export default function AdminPage() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pro Subscribers</CardTitle>
+              <CardTitle className="text-sm font-medium">Subscribers</CardTitle>
               <Crown className="h-4 w-4 text-yellow-500" />
             </CardHeader>
             <CardContent>
@@ -395,7 +397,7 @@ export default function AdminPage() {
                           </div>
                         </div>
                       </div>
-                      <div className="flex gap-2 w-full sm:w-auto">
+                      <div className="flex gap-2 w-full sm:w-auto flex-wrap">
                         <Button
                           size="sm"
                           variant={user.subscription_status === 'trial' ? 'default' : 'outline'}
@@ -404,6 +406,15 @@ export default function AdminPage() {
                           className="flex-1 sm:flex-none"
                         >
                           Trial
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={user.subscription_status === 'starter' ? 'default' : 'outline'}
+                          onClick={() => updateUserSubscription(user.id, 'starter')}
+                          disabled={updatingUserId === user.id || user.subscription_status === 'starter'}
+                          className="flex-1 sm:flex-none"
+                        >
+                          Starter
                         </Button>
                         <Button
                           size="sm"
