@@ -366,7 +366,7 @@ export default function LandingPage() {
                     <span className="text-sm">Email export</span>
                   </li>
                 </ul>
-                <Link href="https://buy.stripe.com/indie-link" target="_blank" rel="noopener noreferrer" className="w-full">
+                <Link href="https://buy.stripe.com/8x26oG45h2diaP38uz1ck03" target="_blank" rel="noopener noreferrer" className="w-full">
                   <Button className="w-full">
                     Upgrade to Indie
                   </Button>
@@ -457,7 +457,7 @@ export default function LandingPage() {
                   <p className="text-muted-foreground mb-4">
                     Lock in founding member pricing. First 300 customers only. All Pro features + grandfathered rate forever.
                   </p>
-                  <Link href="https://buy.stripe.com/founding-link" target="_blank" rel="noopener noreferrer">
+                  <Link href="https://buy.stripe.com/7sY7sKfNZ4lq1et1271ck04" target="_blank" rel="noopener noreferrer">
                     <Button size="lg" className="bg-gradient-to-r from-purple-500 to-blue-500">
                       Claim Founding Member Price →
                     </Button>
