@@ -67,11 +67,14 @@ export default function LandingPage() {
 
         {/* Hero Section */}
         <div className="text-center mb-16 sm:mb-20 mt-4 sm:mt-8">
+          <div className="inline-block mb-4 px-4 py-2 bg-accent rounded-full text-sm text-muted-foreground">
+            Stop writing changelogs manually
+          </div>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2">
-            Ship Faster with
+            Ship faster with
             <br />
             <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-              AI-Powered Changelogs
+              AI-powered changelogs
             </span>
           </h1>
           <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto px-4">
