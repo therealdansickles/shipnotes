@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { UpgradeButton } from "@/components/ui/upgrade-button"
-import { Github, Sparkles, FileText, Zap, Clock, TrendingUp } from "lucide-react"
+import { Github, Sparkles, FileText, Zap, Clock, TrendingUp, GitCommit } from "lucide-react"
 import Link from "next/link"
 import Image from "next/image"
 
