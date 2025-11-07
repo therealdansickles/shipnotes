@@ -4,7 +4,7 @@ import { updateUserRole, logAdminActivity } from '@/lib/supabase'
 
 export async function POST(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   const authCheck = await requireAdmin(req)
   if (authCheck instanceof NextResponse) {
@@ -24,9 +24,10 @@ export async function POST(
       )
     }
 
-    const updatedUser = await updateUserRole(params.id, role)
+    const { id } = await params
+    const updatedUser = await updateUserRole(id, role)
 
-    await logAdminActivity(userId, 'update_role', params.id, {
+    await logAdminActivity(userId, 'update_role', id, {
       new_role: role
     })
 
