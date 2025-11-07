@@ -207,7 +207,7 @@ export default function AdminPage() {
             <span>Back to Dashboard</span>
           </Link>
           <Link href="/" className="flex items-center gap-2">
-            <Image src="/shipnotes-icon.png" alt="ShipNotes" width={24} height={24} className="h-6 w-6" />
+            <Image src="/shipnotes-icon.png" alt="ShipNotes" width={32} height={32} className="h-8 w-8" />
             <span className="text-xl font-bold">ShipNotes Admin</span>
           </Link>
         </div>

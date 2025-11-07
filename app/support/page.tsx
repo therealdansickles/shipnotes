@@ -15,7 +15,7 @@ export default function SupportPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6 sm:mb-8">
           <Link href="/" className="flex items-center gap-1 sm:gap-2 hover:opacity-80">
-            <Image src="/shipnotes-icon.png" alt="ShipNotes" width={24} height={24} className="h-5 w-5 sm:h-6 sm:w-6" />
+            <Image src="/shipnotes-icon.png" alt="ShipNotes" width={32} height={32} className="h-8 w-8" />
             <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
           </Link>
         </div>
