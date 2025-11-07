@@ -53,7 +53,7 @@ SUPABASE_SERVICE_ROLE_KEY=your_service_role_key
 
 # Stripe Payment Links
 NEXT_PUBLIC_STRIPE_STARTER_PAYMENT_LINK=your_starter_link
-NEXT_PUBLIC_STRIPE_PRO_PAYMENT_LINK=https://buy.stripe.com/5kQ5kC6dp9FK0ap3cc
+NEXT_PUBLIC_STRIPE_PRO_PAYMENT_LINK=https://buy.stripe.com/cNieVcdFRbNSf5j9yD1ck02
 ```
 
 **Note:** You'll need to create a Stripe payment link for the Starter plan ($29/month).
