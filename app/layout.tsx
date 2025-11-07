@@ -5,8 +5,8 @@ import { CookieBanner } from "@/components/cookie-banner";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ShipNotes - AI-Powered Changelog Generator",
-  description: "Turn your messy Git commits into beautiful, professional changelogs in seconds with AI",
+  title: "ShipNotes - Team Translation Layer for Git Commits",
+  description: "Translate git commits into updates everyone understands. From developers to designers, executives to investors—one source of truth, infinite translations.",
 };
 
 export default function RootLayout({
