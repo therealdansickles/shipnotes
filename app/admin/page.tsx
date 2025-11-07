@@ -179,12 +179,16 @@ export default function AdminPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex flex-col gap-2">
-              <Button variant="outline" className="w-full justify-start" asChild>
-                <Link href="/dashboard">View Dashboard</Link>
-              </Button>
-              <Button variant="outline" className="w-full justify-start" asChild>
-                <Link href="/settings">Settings</Link>
-              </Button>
+              <Link href="/dashboard">
+                <Button variant="outline" className="w-full justify-start">
+                  View Dashboard
+                </Button>
+              </Link>
+              <Link href="/settings">
+                <Button variant="outline" className="w-full justify-start">
+                  Settings
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
