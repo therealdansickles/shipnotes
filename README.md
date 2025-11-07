@@ -1,290 +1,218 @@
-# ShipNotes - AI-Powered Changelog Generator
-
-Turn your messy Git commits into beautiful, professional changelogs in seconds with AI.
-
-## Features
-
-- **GitHub Integration**: Connect with GitHub OAuth to access your repositories
-- **Smart Commit Parsing**: Automatically categorizes commits using conventional commit standards
-- **AI-Powered Rewriting**: Transforms technical commits into user-friendly release notes
-- **Multiple Export Formats**: Download as Markdown, copy to clipboard, or export as HTML
-- **Usage Tracking**: Free tier includes 3 changelog generations
-- **Dark Mode UI**: Beautiful, developer-friendly interface
-- **Production-Ready Security**: Rate limiting, secure logging, RLS policies, and security headers
-
-## 🔒 Security Features
-
-ShipNotes is production-ready with enterprise-grade security:
-
-- ✅ **Rate Limiting**: Prevents API abuse with configurable limits per endpoint
-- ✅ **Row Level Security**: Database-level access control with Supabase RLS
-- ✅ **Secure Logging**: Automatic sanitization of sensitive data in logs
-- ✅ **Security Headers**: HSTS, CSP, XSS protection, and more
-- ✅ **Input Validation**: All user inputs are validated and sanitized
-- ✅ **Service Role Key**: Backend uses service role for secure database access
-
-📖 **See [DEPLOYMENT.md](./DEPLOYMENT.md) for complete deployment and security documentation.**
-
-## Tech Stack
-
-- **Framework**: Next.js 14 with App Router
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Database**: Supabase
-- **Authentication**: GitHub OAuth
-- **AI**: OpenAI GPT-4
-- **Deployment**: Vercel-ready
-
-## Quick Start
-
-### Prerequisites
-
-- Node.js 18+ installed
-- GitHub account
-- Supabase account (free tier works)
-- OpenAI API key
-
-### 1. Clone and Install
-
-```bash
-git clone <your-repo-url>
-cd shipnotes
-npm install
-```
-
-### 2. Set Up Supabase
-
-1. Create a new project at [supabase.com](https://supabase.com)
-2. Go to SQL Editor and run this schema:
-
-```sql
--- Users table
-CREATE TABLE users (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  github_id TEXT UNIQUE NOT NULL,
-  github_username TEXT NOT NULL,
-  email TEXT NOT NULL,
-  avatar_url TEXT,
-  subscription_status TEXT DEFAULT 'trial',
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Changelogs table
-CREATE TABLE changelogs (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  repo_name TEXT NOT NULL,
-  repo_owner TEXT NOT NULL,
-  commit_count INTEGER NOT NULL,
-  technical_output TEXT NOT NULL,
-  user_output TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Usage tracking table
-CREATE TABLE usage (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  user_id UUID REFERENCES users(id) ON DELETE CASCADE,
-  action TEXT NOT NULL,
-  created_at TIMESTAMP DEFAULT NOW()
-);
-
--- Indexes for better performance
-CREATE INDEX idx_changelogs_user_id ON changelogs(user_id);
-CREATE INDEX idx_usage_user_id ON usage(user_id);
-CREATE INDEX idx_usage_action ON usage(action);
-```
-
-3. Get your project URL and anon key from Settings → API
-
-### 3. Set Up GitHub OAuth
-
-**IMPORTANT:** You need to set up TWO OAuth apps - one for development and one for production.
-
-#### Development OAuth App
-
-1. Go to GitHub → Settings → Developer settings → OAuth Apps
-2. Click "New OAuth App"
-3. Fill in:
-   - **Application name**: ShipNotes (Development)
-   - **Homepage URL**: `http://localhost:3000`
-   - **Authorization callback URL**: `http://localhost:3000/api/auth/callback`
-4. Click "Register application"
-5. Copy your Client ID and generate a Client Secret
-
-#### Production OAuth App
-
-1. Create another OAuth App for production
-2. Fill in:
-   - **Application name**: ShipNotes
-   - **Homepage URL**: `https://shipnotes.xyz`
-   - **Authorization callback URL**: `https://shipnotes.xyz/api/auth/callback`
-3. Copy the production Client ID and Client Secret
-
-**Note:** You'll use the development credentials in `.env.local` and production credentials in Vercel environment variables.
-
-### 4. Get OpenAI API Key
-
-1. Go to [platform.openai.com](https://platform.openai.com)
-2. Navigate to API keys
-3. Create a new secret key
-4. Copy the key (you won't be able to see it again!)
-
-### 5. Configure Environment Variables
-
-Create a `.env.local` file in the root directory:
-
-```bash
-cp .env.example .env.local
-```
-
-Fill in your credentials:
-
-```env
-# Supabase
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
-
-# GitHub OAuth
-GITHUB_CLIENT_ID=your_github_oauth_client_id
-GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
-
-# OpenAI
-OPENAI_API_KEY=your_openai_api_key
-
-# Stripe (optional for development)
-STRIPE_SECRET_KEY=your_stripe_secret_key
-STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
-NEXT_PUBLIC_STRIPE_PRO_PAYMENT_LINK=https://buy.stripe.com/your_link
-
-# App Configuration
-NEXT_PUBLIC_APP_URL=http://localhost:3000
-```
-
-**Note**: For production deployment, see [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed setup instructions.
-
-### 6. Run the Development Server
-
-```bash
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Project Structure
-
-```
-shipnotes/
-├── app/
-│   ├── api/                    # API routes
-│   │   ├── auth/               # GitHub OAuth
-│   │   ├── github/             # GitHub API endpoints
-│   │   └── generate-changelog/ # Changelog generation
-│   ├── dashboard/              # Repository list page
-│   ├── repo/[owner]/[name]/    # Commit selection & generation
-│   ├── layout.tsx              # Root layout
-│   ├── page.tsx                # Landing page
-│   └── globals.css             # Global styles
-├── components/
-│   └── ui/                     # Reusable UI components
-├── lib/
-│   ├── supabase.ts             # Supabase client & helpers
-│   ├── github.ts               # GitHub API utilities
-│   ├── openai.ts               # OpenAI integration
-│   ├── changelog-generator.ts  # Changelog logic
-│   └── utils.ts                # Utility functions
-└── public/                     # Static assets
-```
-
-## How It Works
-
-1. **User Authentication**: Users sign in with GitHub OAuth
-2. **Repository Selection**: View all accessible GitHub repositories
-3. **Commit Analysis**: Fetch and filter commits from the last 30 days
-4. **Changelog Generation**:
-   - Technical version: Grouped by conventional commit types
-   - User-friendly version: AI-rewritten for non-technical audiences
-5. **Export Options**: Copy to clipboard or download as Markdown
-
-## Development
-
-### Build for Production
-
-```bash
-npm run build
-```
-
-### Start Production Server
-
-```bash
-npm start
-```
-
-## Deployment
-
-### Deploy to Vercel
-
-1. Push your code to GitHub
-2. Import project in Vercel
-3. Add environment variables in Vercel dashboard
-4. Update GitHub OAuth callback URL to your production domain
-5. Deploy!
-
-**Important**: Update your GitHub OAuth App settings with production URLs:
-- Homepage URL: `https://yourdomain.com`
-- Callback URL: `https://yourdomain.com/api/auth/callback`
-
-## Usage Limits
-
-- **Free Trial**: 3 changelog generations
-- **Pro Plan**: Unlimited generations (implement Stripe integration)
-
-## Future Enhancements
-
-- [ ] Stripe payment integration
-- [ ] Custom date range selection
-- [ ] Multiple changelog styles (GitHub, Linear, Notion)
-- [ ] Scheduled changelog generation
-- [ ] Team collaboration features
-- [ ] Webhook integration
-- [ ] API access for programmatic generation
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-MIT License - feel free to use this project for your own purposes.
-
-## Troubleshooting
-
-### GitHub OAuth "redirect_uri not associated" Error
-
-If you see a GitHub error saying "The redirect_uri is not associated with this application":
-
-1. Go to your GitHub OAuth App settings (GitHub → Settings → Developer settings → OAuth Apps)
-2. Click on your ShipNotes app
-3. Make sure the **Authorization callback URL** matches exactly:
-   - For production: `https://shipnotes.xyz/api/auth/callback`
-   - For development: `http://localhost:3000/api/auth/callback`
-4. Save the changes
-5. Make sure you're using the correct `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` for the environment (dev vs production)
-
-### Stripe Webhook Not Working
-
-1. Make sure your webhook endpoint URL is correct: `https://shipnotes.xyz/api/stripe/webhook`
-2. Verify you've selected the correct events in Stripe dashboard
-3. Check that `STRIPE_WEBHOOK_SECRET` matches the signing secret from Stripe
-4. Look at webhook logs in Stripe dashboard for errors
-
-## Support
-
-For issues or questions, please open an issue on GitHub.
+<div align="center">
+  <img src="public/shipnotes-logo.png" alt="ShipNotes Logo" width="400"/>
+
+  <h1>ShipNotes</h1>
+  <p><strong>Every team speaks a different language. Now they can all understand each other.</strong></p>
+
+  [![Made with Next.js](https://img.shields.io/badge/Made%20with-Next.js%2016-000000?style=for-the-badge&logo=next.js)](https://nextjs.org)
+  [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-000000?style=for-the-badge&logo=vercel)](https://vercel.com)
+  [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+
+  [Website](https://shipnotes.xyz) • [Twitter](https://x.com/ShipNotesXYZ) • [Report Bug](https://github.com/therealdansickles/shipnotes/issues)
+</div>
 
 ---
 
-**Built with ❤️ by developers, for developers. Ship faster!**
+## 🚀 What is ShipNotes?
 
-Available at [shipnotes.xyz](https://shipnotes.xyz)
+ShipNotes is an AI-powered **translation layer** for development teams. It takes your git commits and translates them into updates that everyone understands—from developers to designers, executives to investors.
+
+### The Problem
+
+- Developers write commits in technical language: `"Refactored auth middleware for better token validation"`
+- Non-technical stakeholders need it translated: `"Improved login security"`
+- Manually rewriting the same update 5 different ways wastes **2-3 hours per week**
+- Communication gaps lead to misalignment, missed expectations, and confusion
+
+### The Solution
+
+**One commit → Infinite translations.**
+
+ShipNotes automatically generates audience-appropriate versions:
+- **Developers:** Technical details, implementation specifics
+- **Designers:** UX impact, visual changes
+- **Executives:** Business value, ROI, strategic alignment
+- **Investors:** Growth metrics, security improvements
+- **End Users:** Clear benefits without jargon
+
+---
+
+## ✨ Features
+
+- 🔗 **GitHub Integration** - Connect your repos with OAuth
+- 🤖 **AI-Powered Translation** - Smart conversion using GPT-4
+- 👥 **Multi-Stakeholder Support** - Customize for each audience
+- ⚡ **Instant Generation** - 30 seconds vs 30 minutes manually
+- 📊 **Usage Tracking** - Monitor changelog history
+- 🎨 **Beautiful Output** - Professional formatting with emojis
+- 🔒 **Secure & Private** - Your code never leaves your control
+
+---
+
+## 🛠️ Tech Stack
+
+- **Frontend:** [Next.js 16](https://nextjs.org) (App Router) + TypeScript
+- **Styling:** [Tailwind CSS](https://tailwindcss.com) + [shadcn/ui](https://ui.shadcn.com)
+- **Database:** [Supabase](https://supabase.com) (PostgreSQL)
+- **Auth:** GitHub OAuth via [Privy](https://privy.io)
+- **AI:** [OpenAI API](https://openai.com) (GPT-4o-mini)
+- **Payments:** [Stripe](https://stripe.com)
+- **Deployment:** [Vercel](https://vercel.com)
+
+---
+
+## 🎯 Use Cases
+
+### 🚀 Fast-Moving Startups
+Non-technical founders need to understand what engineering is shipping without weekly status meetings.
+
+### 🎨 Creative Agencies
+Dev teams + design teams + clients all need project updates in their own language.
+
+### 📦 Product Teams
+Engineering ships features → Product/Design need impact summaries → Stakeholders need business context.
+
+### 🌐 Web3 Projects
+Technical core team → Community-focused communication without losing the technical depth.
+
+---
+
+## 🏃 Getting Started
+
+### Prerequisites
+
+- Node.js 18+ and npm
+- Supabase account
+- GitHub OAuth app
+- OpenAI API key
+
+### Installation
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/therealdansickles/shipnotes.git
+   cd shipnotes
+   ```
+
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**
+   ```bash
+   cp .env.example .env.local
+   ```
+
+   Fill in your environment variables:
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+   SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+   GITHUB_CLIENT_SECRET=your_github_oauth_client_secret
+   OPENAI_API_KEY=your_openai_api_key
+   STRIPE_SECRET_KEY=your_stripe_secret_key
+   STRIPE_WEBHOOK_SECRET=your_stripe_webhook_signing_secret
+   ```
+
+4. **Set up Supabase database**
+
+   Run the SQL migrations in `supabase/migrations/` to create the required tables.
+
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## 📂 Project Structure
+
+```
+shipnotes/
+├── app/                    # Next.js App Router pages
+│   ├── api/               # API routes
+│   ├── blog/              # Blog posts (SEO content)
+│   ├── dashboard/         # User dashboard
+│   └── ...
+├── components/            # React components
+│   └── ui/               # shadcn/ui components
+├── lib/                   # Utility functions
+│   ├── github.ts         # GitHub API integration
+│   ├── openai.ts         # AI prompt engineering
+│   ├── supabase.ts       # Database client
+│   └── ...
+├── public/               # Static assets
+└── supabase/            # Database migrations
+```
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions! Here's how you can help:
+
+1. **Fork the repository**
+2. **Create a feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Commit your changes** (`git commit -m 'Add some amazing feature'`)
+4. **Push to the branch** (`git push origin feature/amazing-feature`)
+5. **Open a Pull Request**
+
+### Development Guidelines
+
+- Follow the existing code style (TypeScript + ESLint)
+- Write clear commit messages (Conventional Commits format)
+- Add tests for new features when applicable
+- Update documentation as needed
+
+---
+
+## 🐛 Bug Reports & Feature Requests
+
+Found a bug or have an idea? [Open an issue](https://github.com/therealdansickles/shipnotes/issues) and we'll address it as soon as possible.
+
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 🌟 Show Your Support
+
+If ShipNotes helps you communicate better with your team:
+
+- ⭐ **Star this repo** on GitHub
+- 🐦 Follow [@ShipNotesXYZ](https://x.com/ShipNotesXYZ) on Twitter
+- 📣 Share ShipNotes with your team
+- 🙏 Spread the word about the "translation layer" concept
+
+---
+
+## 🔗 Links
+
+- **Website:** [shipnotes.xyz](https://shipnotes.xyz)
+- **Twitter:** [@ShipNotesXYZ](https://x.com/ShipNotesXYZ)
+- **GitHub:** [therealdansickles/shipnotes](https://github.com/therealdansickles/shipnotes)
+- **Issues:** [Report a bug](https://github.com/therealdansickles/shipnotes/issues)
+
+---
+
+## 💬 Community
+
+Questions? Want to chat? Reach out:
+
+- Twitter DMs: [@ShipNotesXYZ](https://x.com/ShipNotesXYZ)
+- Email: hello@dpopstudios.xyz
+- GitHub Issues: [Ask a question](https://github.com/therealdansickles/shipnotes/issues/new)
+
+---
+
+<div align="center">
+  <p>Built with ❤️ by <a href="https://x.com/ShipNotesXYZ">dpop Studios</a></p>
+  <p><strong>Translate your code for every team.</strong></p>
+</div>

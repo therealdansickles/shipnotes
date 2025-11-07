@@ -41,10 +41,15 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Support */}
+          {/* Resources */}
           <div>
-            <h3 className="font-semibold mb-3 text-sm">Support</h3>
+            <h3 className="font-semibold mb-3 text-sm">Resources</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>
+                <Link href="/blog" className="hover:text-foreground transition-colors">
+                  Blog
+                </Link>
+              </li>
               <li>
                 <Link href="/support" className="hover:text-foreground transition-colors">
                   Contact Support
@@ -58,14 +63,6 @@ export function Footer() {
                   className="hover:text-foreground transition-colors"
                 >
                   GitHub
-                </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:hello@dpopstudios.xyz"
-                  className="hover:text-foreground transition-colors"
-                >
-                  Email Us
                 </a>
               </li>
             </ul>

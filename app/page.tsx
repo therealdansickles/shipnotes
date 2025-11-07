@@ -307,24 +307,25 @@ export default function LandingPage() {
         {/* Pricing */}
         <div className="mb-32">
           <h2 className="text-3xl font-bold text-center mb-12">Simple, transparent pricing</h2>
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <Card className="p-8 flex flex-col">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto mb-8">
+            {/* Free */}
+            <Card className="p-6 flex flex-col">
               <CardContent className="pt-6 flex-1 flex flex-col">
                 <h3 className="text-2xl font-bold mb-2">Free</h3>
                 <div className="text-4xl font-bold mb-4">$0</div>
-                <p className="text-muted-foreground mb-6">Test the translation layer</p>
+                <p className="text-muted-foreground mb-6 text-sm">Build the habit</p>
                 <ul className="space-y-3 mb-8 flex-1">
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>3 changelogs to test</span>
+                    <span className="text-sm">5 translations/month</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>All output formats</span>
+                    <span className="text-sm">All output formats</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>See how it works</span>
+                    <span className="text-sm">Test the translation layer</span>
                   </li>
                 </ul>
                 <Link href="/api/auth/github" className="w-full">
@@ -335,32 +336,69 @@ export default function LandingPage() {
               </CardContent>
             </Card>
 
-            <Card className="p-8 border-primary border-2 relative flex flex-col">
-              <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground px-4 py-1 rounded-full text-sm font-semibold">
+            {/* Indie */}
+            <Card className="p-6 border-primary border-2 relative flex flex-col">
+              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground px-3 py-1 rounded-full text-xs font-semibold">
                 Most Popular
               </div>
               <CardContent className="pt-6 flex-1 flex flex-col">
-                <h3 className="text-2xl font-bold mb-2">Starter</h3>
-                <div className="text-4xl font-bold mb-4">
-                  $29<span className="text-lg text-muted-foreground">/month</span>
+                <h3 className="text-2xl font-bold mb-2">Indie</h3>
+                <div className="text-4xl font-bold mb-1">
+                  $15<span className="text-lg text-muted-foreground">/mo</span>
                 </div>
-                <p className="text-muted-foreground mb-6">For growing teams</p>
+                <p className="text-xs text-muted-foreground mb-4">or $99/yr (save $81)</p>
+                <p className="text-muted-foreground mb-6 text-sm">For solo developers</p>
                 <ul className="space-y-3 mb-8 flex-1">
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>Unlimited changelogs</span>
+                    <span className="text-sm">1 repo</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>2 output formats</span>
+                    <span className="text-sm">200 translations/mo</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>AI-powered translation</span>
+                    <span className="text-sm">2 output formats</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>Custom date ranges</span>
+                    <span className="text-sm">Email export</span>
+                  </li>
+                </ul>
+                <Link href="https://buy.stripe.com/indie-link" target="_blank" rel="noopener noreferrer" className="w-full">
+                  <Button className="w-full">
+                    Upgrade to Indie
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+
+            {/* Starter */}
+            <Card className="p-6 flex flex-col">
+              <CardContent className="pt-6 flex-1 flex flex-col">
+                <h3 className="text-2xl font-bold mb-2">Starter</h3>
+                <div className="text-4xl font-bold mb-1">
+                  $29<span className="text-lg text-muted-foreground">/mo</span>
+                </div>
+                <p className="text-xs text-muted-foreground mb-4">or $276/yr (save 20%)</p>
+                <p className="text-muted-foreground mb-6 text-sm">For small teams</p>
+                <ul className="space-y-3 mb-8 flex-1">
+                  <li className="flex items-center gap-2">
+                    <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                    <span className="text-sm">Up to 3 repos</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                    <span className="text-sm">Unlimited translations</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                    <span className="text-sm">3 output formats</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                    <span className="text-sm">Slack/Discord (coming)</span>
                   </li>
                 </ul>
                 <Link href="https://buy.stripe.com/aFa9AS59l3hmbT7cKP1ck00" target="_blank" rel="noopener noreferrer" className="w-full">
@@ -371,29 +409,31 @@ export default function LandingPage() {
               </CardContent>
             </Card>
 
-            <Card className="p-8 flex flex-col">
+            {/* Pro */}
+            <Card className="p-6 flex flex-col">
               <CardContent className="pt-6 flex-1 flex flex-col">
                 <h3 className="text-2xl font-bold mb-2">Pro</h3>
-                <div className="text-4xl font-bold mb-4">
-                  $49<span className="text-lg text-muted-foreground">/month</span>
+                <div className="text-4xl font-bold mb-1">
+                  $49<span className="text-lg text-muted-foreground">/mo</span>
                 </div>
-                <p className="text-muted-foreground mb-6">For scaling teams</p>
+                <p className="text-xs text-muted-foreground mb-4">or $468/yr (save 20%)</p>
+                <p className="text-muted-foreground mb-6 text-sm">For scaling teams</p>
                 <ul className="space-y-3 mb-8 flex-1">
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>Everything in Starter</span>
+                    <span className="text-sm">Unlimited repos</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>Unlimited output formats</span>
+                    <span className="text-sm">All output formats</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>Priority support</span>
+                    <span className="text-sm">Priority support</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>Coming: Slack/Discord</span>
+                    <span className="text-sm">Team seats (2-5)</span>
                   </li>
                 </ul>
                 <Link href="https://buy.stripe.com/cNieVcdFRbNSf5j9yD1ck02" target="_blank" rel="noopener noreferrer" className="w-full">
@@ -401,6 +441,28 @@ export default function LandingPage() {
                     Upgrade to Pro
                   </Button>
                 </Link>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Founding Plan Banner */}
+          <div className="max-w-4xl mx-auto">
+            <Card className="p-6 bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-primary/50">
+              <CardContent className="pt-6">
+                <div className="text-center">
+                  <div className="inline-block bg-primary text-primary-foreground px-3 py-1 rounded-full text-sm font-semibold mb-3">
+                    🚀 Founding Member - Limited Time
+                  </div>
+                  <h3 className="text-2xl font-bold mb-2">$149/year for life</h3>
+                  <p className="text-muted-foreground mb-4">
+                    Lock in founding member pricing. First 300 customers only. All Pro features + grandfathered rate forever.
+                  </p>
+                  <Link href="https://buy.stripe.com/founding-link" target="_blank" rel="noopener noreferrer">
+                    <Button size="lg" className="bg-gradient-to-r from-purple-500 to-blue-500">
+                      Claim Founding Member Price →
+                    </Button>
+                  </Link>
+                </div>
               </CardContent>
             </Card>
           </div>
