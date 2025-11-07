@@ -262,10 +262,7 @@ export default function RepoPage() {
                       <span className="text-sm sm:text-base">Generating...</span>
                     </>
                   ) : (
-                    <>
-                      <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
-                      <span className="text-sm sm:text-base">Generate Changelog</span>
-                    </>
+                    <span className="text-sm sm:text-base">Generate Changelog</span>
                   )}
                 </Button>
                 <p className="text-center text-xs sm:text-sm text-muted-foreground mt-2">
@@ -375,9 +372,8 @@ export default function RepoPage() {
                 <CardHeader>
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
-                      <CardTitle className="flex items-center gap-2 text-lg sm:text-xl">
+                      <CardTitle className="text-lg sm:text-xl">
                         User-Friendly Version
-                        <Sparkles className="h-4 w-4 sm:h-5 sm:w-5 text-purple-400" />
                       </CardTitle>
                       <CardDescription className="text-xs sm:text-sm">AI-rewritten for your users</CardDescription>
                     </div>
