@@ -67,19 +67,18 @@ export default function LandingPage() {
 
         {/* Hero Section */}
         <div className="text-center mb-16 sm:mb-20 mt-4 sm:mt-8">
-          <div className="inline-block mb-4 px-4 py-2 bg-accent rounded-full text-sm text-muted-foreground">
-            Stop writing changelogs manually
-          </div>
           <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 sm:mb-6 leading-tight px-2">
-            Ship faster with
+            Every Team Speaks a
             <br />
             <span className="bg-gradient-to-r from-blue-400 to-purple-600 bg-clip-text text-transparent">
-              AI-powered changelogs
+              Different Language
             </span>
           </h1>
+          <p className="text-2xl sm:text-3xl font-bold mb-6">
+            Now They Can All Understand Each Other.
+          </p>
           <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto px-4">
-            Turn your messy Git commits into beautiful, professional changelogs in seconds.
-            Your users deserve better than "fixed stuff" and "WIP".
+            Turn git commits into updates everyone actually understands, from developers to designers, executives to investors.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button
@@ -89,7 +88,7 @@ export default function LandingPage() {
               disabled={isLoading}
             >
               <Github className="h-5 w-5 mr-2" />
-              {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Get Started with GitHub'}
+              {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Start Translating Today for Free'}
             </Button>
             <Link href="/repo/therealdansickles/shipnotes">
               <Button size="lg" variant="outline" className="text-lg h-14 px-8 border-2 hover:bg-accent w-full sm:w-auto">
@@ -112,59 +111,88 @@ export default function LandingPage() {
                   S
                 </div>
               </div>
-              <span className="text-center">500+ developers shipping faster</span>
+              <span className="text-center">Fast-moving teams translating their work</span>
             </div>
           </div>
         </div>
 
-        {/* Demo Section */}
+        {/* The Translation Problem */}
         <div className="mb-32">
+          <h2 className="text-3xl font-bold text-center mb-4">The Translation Problem</h2>
+          <p className="text-center text-muted-foreground mb-12 max-w-2xl mx-auto">
+            One source of truth, infinite translations. See how ShipNotes speaks everyone's language.
+          </p>
           <Card className="p-8 bg-gradient-to-br from-background to-accent border-2">
-            <div className="grid md:grid-cols-2 gap-8">
-              <div>
-                <div className="text-sm text-muted-foreground mb-2">BEFORE</div>
-                <div className="font-mono text-sm bg-background p-4 rounded-lg border space-y-2 min-h-[240px] flex flex-col justify-center">
-                  <div className="text-red-400">• fix: button thing</div>
-                  <div className="text-red-400">• update stuff</div>
-                  <div className="text-red-400">• WIP</div>
-                  <div className="text-red-400">• fix bug idk</div>
-                  <div className="text-red-400">• merge branch xyz</div>
-                </div>
+            {/* Git Commit Input */}
+            <div className="mb-6">
+              <div className="flex items-center gap-2 mb-3">
+                <GitCommit className="h-4 w-4" />
+                <span className="text-sm font-semibold">GIT COMMIT (One Input)</span>
               </div>
-              <div>
-                <div className="text-sm text-muted-foreground mb-2 flex items-center gap-2">
-                  AFTER <Sparkles className="h-3 w-3" />
-                </div>
-                <div className="text-sm bg-background p-4 rounded-lg border space-y-3 min-h-[240px] flex flex-col justify-center">
-                  <div>
-                    <div className="text-green-400 font-semibold">✨ New Features</div>
-                    <div className="text-muted-foreground ml-4">Added user authentication flow</div>
-                  </div>
-                  <div>
-                    <div className="text-blue-400 font-semibold">🐛 Bug Fixes</div>
-                    <div className="text-muted-foreground ml-4">Fixed critical payment processing error</div>
-                    <div className="text-muted-foreground ml-4">Resolved login redirect issue</div>
-                  </div>
-                  <div>
-                    <div className="text-purple-400 font-semibold">🎨 Improvements</div>
-                    <div className="text-muted-foreground ml-4">Enhanced button responsiveness</div>
-                  </div>
-                </div>
+              <div className="font-mono text-sm bg-background p-4 rounded-lg border">
+                <span className="text-red-400">fix:</span> resolved race condition in useState hook causing re-renders
               </div>
             </div>
+
+            {/* Arrow */}
+            <div className="text-center text-muted-foreground text-sm mb-6">
+              ↓ Translated into ↓
+            </div>
+
+            {/* Translated Outputs */}
+            <div className="grid md:grid-cols-2 gap-4">
+              <Card className="p-4 bg-background border-blue-500/50">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-blue-400 text-sm font-semibold">🎨 For Designers</span>
+                </div>
+                <p className="text-sm">Fixed the flickering issue on page load</p>
+              </Card>
+
+              <Card className="p-4 bg-background border-purple-500/50">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-purple-400 text-sm font-semibold">💼 For Executives</span>
+                </div>
+                <p className="text-sm">Improved site performance and user experience</p>
+              </Card>
+
+              <Card className="p-4 bg-background border-green-500/50">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-green-400 text-sm font-semibold">📢 For Marketing</span>
+                </div>
+                <p className="text-sm">Site now loads smoothly for all users</p>
+              </Card>
+
+              <Card className="p-4 bg-background border-yellow-500/50">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-yellow-400 text-sm font-semibold">💰 For Investors</span>
+                </div>
+                <p className="text-sm">Reduced technical debt, improved retention metrics</p>
+              </Card>
+
+              <Card className="p-4 bg-background border-orange-500/50 md:col-span-2">
+                <div className="flex items-center gap-2 mb-2">
+                  <span className="text-orange-400 text-sm font-semibold">👨‍💻 For Developers</span>
+                </div>
+                <p className="text-sm">Resolved race condition in React state management preventing unnecessary component re-renders</p>
+              </Card>
+            </div>
+
+            <p className="text-center text-sm text-muted-foreground mt-6">
+              Same commit. Different languages. Everyone understands.
+            </p>
           </Card>
         </div>
 
-        {/* Features */}
+        {/* One Input, Infinite Outputs */}
         <div className="mb-32">
-          <h2 className="text-3xl font-bold text-center mb-12">Everything you need to ship</h2>
+          <h2 className="text-3xl font-bold text-center mb-12">One Input, Infinite Outputs</h2>
           <div className="grid md:grid-cols-3 gap-8">
             <Card className="p-6 hover:border-primary transition-colors">
               <CardContent className="pt-6">
                 <Zap className="h-10 w-10 mb-4 text-yellow-400" />
-                <h3 className="text-xl font-bold mb-2">Generate in Seconds</h3>
+                <h3 className="text-xl font-bold mb-2">Instant Translation</h3>
                 <p className="text-muted-foreground">
-                  Select your commits, click generate. Get professional changelogs instantly.
+                  One git commit becomes five different updates. Each stakeholder gets exactly what they need to understand.
                 </p>
               </CardContent>
             </Card>
@@ -172,9 +200,9 @@ export default function LandingPage() {
             <Card className="p-6 hover:border-primary transition-colors">
               <CardContent className="pt-6">
                 <Sparkles className="h-10 w-10 mb-4 text-purple-400" />
-                <h3 className="text-xl font-bold mb-2">AI-Powered</h3>
+                <h3 className="text-xl font-bold mb-2">Built by Creatives</h3>
                 <p className="text-muted-foreground">
-                  Smart categorization and rewriting. Turns tech talk into human language.
+                  We're creative technologists who lived this problem. We built the translation layer we wished existed.
                 </p>
               </CardContent>
             </Card>
@@ -182,9 +210,9 @@ export default function LandingPage() {
             <Card className="p-6 hover:border-primary transition-colors">
               <CardContent className="pt-6">
                 <FileText className="h-10 w-10 mb-4 text-blue-400" />
-                <h3 className="text-xl font-bold mb-2">Multiple Formats</h3>
+                <h3 className="text-xl font-bold mb-2">Every Stakeholder's Language</h3>
                 <p className="text-muted-foreground">
-                  Export as Markdown, HTML, or plain text. Copy with one click.
+                  Designers, executives, marketers, investors, developers—everyone gets updates in their own language.
                 </p>
               </CardContent>
             </Card>
@@ -212,9 +240,9 @@ export default function LandingPage() {
                 2
               </div>
               <div>
-                <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">Select Repository</h3>
+                <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">Select Your Commits</h3>
                 <p className="text-sm sm:text-base text-muted-foreground">
-                  Choose any repo and we'll fetch your recent commits automatically.
+                  Choose your repo and the commits you want to translate. We fetch everything automatically.
                 </p>
               </div>
             </div>
@@ -224,9 +252,9 @@ export default function LandingPage() {
                 3
               </div>
               <div>
-                <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">Generate & Ship</h3>
+                <h3 className="text-lg sm:text-xl font-bold mb-1 sm:mb-2">Translate & Share</h3>
                 <p className="text-sm sm:text-base text-muted-foreground">
-                  Get both technical and user-friendly versions. Copy, download, or share instantly.
+                  Get versions for designers, executives, marketing, investors, and developers. Everyone understands instantly.
                 </p>
               </div>
             </div>
@@ -293,24 +321,24 @@ export default function LandingPage() {
         {/* Pricing */}
         <div className="mb-32">
           <h2 className="text-3xl font-bold text-center mb-12">Simple, transparent pricing</h2>
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             <Card className="p-8 flex flex-col">
               <CardContent className="pt-6 flex-1 flex flex-col">
-                <h3 className="text-2xl font-bold mb-2">Free Trial</h3>
+                <h3 className="text-2xl font-bold mb-2">Free</h3>
                 <div className="text-4xl font-bold mb-4">$0</div>
-                <p className="text-muted-foreground mb-6">Perfect to try it out</p>
+                <p className="text-muted-foreground mb-6">Test the translation layer</p>
                 <ul className="space-y-3 mb-8 flex-1">
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>3 changelog generations</span>
+                    <span>3 changelogs to test</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>All export formats</span>
+                    <span>All output formats</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>30 days of commits</span>
+                    <span>See how it works</span>
                   </li>
                 </ul>
                 <Link href="/api/auth/github" className="w-full">
@@ -326,27 +354,56 @@ export default function LandingPage() {
                 Most Popular
               </div>
               <CardContent className="pt-6 flex-1 flex flex-col">
-                <h3 className="text-2xl font-bold mb-2">Pro</h3>
+                <h3 className="text-2xl font-bold mb-2">Starter</h3>
                 <div className="text-4xl font-bold mb-4">
                   $29<span className="text-lg text-muted-foreground">/month</span>
                 </div>
-                <p className="text-muted-foreground mb-6">Ship faster, forever</p>
+                <p className="text-muted-foreground mb-6">For growing teams</p>
                 <ul className="space-y-3 mb-8 flex-1">
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span className="font-semibold">Unlimited changelogs</span>
+                    <span>Unlimited changelogs</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
-                    <span>AI-powered rewriting</span>
+                    <span>2 output formats</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                    <span>AI-powered translation</span>
                   </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
                     <span>Custom date ranges</span>
                   </li>
+                </ul>
+                <UpgradeButton variant="outline" className="w-full border-2" showIcon={false} />
+              </CardContent>
+            </Card>
+
+            <Card className="p-8 flex flex-col">
+              <CardContent className="pt-6 flex-1 flex flex-col">
+                <h3 className="text-2xl font-bold mb-2">Pro</h3>
+                <div className="text-4xl font-bold mb-4">
+                  $49<span className="text-lg text-muted-foreground">/month</span>
+                </div>
+                <p className="text-muted-foreground mb-6">For scaling teams</p>
+                <ul className="space-y-3 mb-8 flex-1">
+                  <li className="flex items-center gap-2">
+                    <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                    <span>Everything in Starter</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                    <span>Unlimited output formats</span>
+                  </li>
                   <li className="flex items-center gap-2">
                     <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
                     <span>Priority support</span>
+                  </li>
+                  <li className="flex items-center gap-2">
+                    <div className="h-5 w-5 rounded-full bg-green-500/20 flex items-center justify-center text-green-500 text-xs">✓</div>
+                    <span>Coming: Slack/Discord</span>
                   </li>
                 </ul>
                 <UpgradeButton variant="outline" className="w-full border-2" showIcon={false} />
@@ -359,9 +416,9 @@ export default function LandingPage() {
         <div className="text-center px-4">
           <Card className="p-8 sm:p-12 bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2">
             <CardContent>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Ready to ship better changelogs?</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4">Ready to speak everyone's language?</h2>
               <p className="text-base sm:text-lg md:text-xl text-muted-foreground mb-6 sm:mb-8">
-                Join hundreds of developers who are shipping faster
+                Join fast-moving teams who translate their work instantly
               </p>
               <Button
                 size="lg"
@@ -370,10 +427,10 @@ export default function LandingPage() {
                 disabled={isLoading}
               >
                 <Github className="h-5 w-5 mr-2" />
-                {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Get Started Free'}
+                {isLoading ? 'Loading...' : isLoggedIn ? 'Go to Dashboard' : 'Start Translating for Free'}
               </Button>
               <p className="text-xs sm:text-sm text-muted-foreground mt-4">
-                No credit card required • 3 free changelogs
+                No credit card required • 3 free translations to test
               </p>
             </CardContent>
           </Card>
