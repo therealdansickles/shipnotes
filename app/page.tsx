@@ -367,7 +367,7 @@ export default function LandingPage() {
                   </li>
                 </ul>
                 <Link href="https://buy.stripe.com/8x26oG45h2diaP38uz1ck03" target="_blank" rel="noopener noreferrer" className="w-full">
-                  <Button className="w-full">
+                  <Button variant="outline" className="w-full border-2">
                     Upgrade to Indie
                   </Button>
                 </Link>
