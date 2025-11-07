@@ -4,7 +4,7 @@ import clientPromise from '@/lib/mongodb'
 
 // Admin email addresses - add your email here
 const ADMIN_EMAILS = [
-  'dansickles@gmail.com',
+  'dan@dansickles.com',
   // Add more admin emails as needed
 ]
 
