@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
-import { ArrowLeft, Users, FileText, Crown, TrendingUp } from 'lucide-react'
+import { ArrowLeft, Users, FileText, Crown, TrendingUp, ChevronDown, ChevronUp } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 
@@ -18,6 +18,16 @@ type AdminStats = {
   changelogsThisMonth: number
 }
 
+type UserData = {
+  id: string
+  github_username: string
+  email: string
+  avatar_url?: string
+  subscription_status: 'trial' | 'pro' | 'expired'
+  created_at: string
+  changelog_count: number
+}
+
 export default function AdminPage() {
   const router = useRouter()
   const [stats, setStats] = useState<AdminStats | null>(null)
@@ -25,6 +35,10 @@ export default function AdminPage() {
   const [isAdmin, setIsAdmin] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [debugInfo, setDebugInfo] = useState<any>(null)
+  const [users, setUsers] = useState<UserData[]>([])
+  const [usersExpanded, setUsersExpanded] = useState(false)
+  const [loadingUsers, setLoadingUsers] = useState(false)
+  const [updatingUserId, setUpdatingUserId] = useState<string | null>(null)
 
   useEffect(() => {
     fetchAdminStats()
@@ -56,6 +70,77 @@ export default function AdminPage() {
       setError('Failed to load admin data')
     } finally {
       setLoading(false)
+    }
+  }
+
+  const fetchUsers = async () => {
+    setLoadingUsers(true)
+    try {
+      const response = await fetch('/api/admin/users')
+      if (response.ok) {
+        const data = await response.json()
+        setUsers(data.users)
+      }
+    } catch (error) {
+      console.error('Error fetching users:', error)
+    } finally {
+      setLoadingUsers(false)
+    }
+  }
+
+  const updateUserSubscription = async (userId: string, newStatus: 'trial' | 'pro' | 'expired') => {
+    setUpdatingUserId(userId)
+    try {
+      const response = await fetch(`/api/admin/users/${userId}`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ subscription_status: newStatus }),
+      })
+
+      if (response.ok) {
+        // Update local state
+        setUsers(users.map(user =>
+          user.id === userId
+            ? { ...user, subscription_status: newStatus }
+            : user
+        ))
+        // Refresh stats to reflect changes
+        fetchAdminStats()
+      }
+    } catch (error) {
+      console.error('Error updating user subscription:', error)
+    } finally {
+      setUpdatingUserId(null)
+    }
+  }
+
+  const toggleUsersExpanded = () => {
+    if (!usersExpanded && users.length === 0) {
+      fetchUsers()
+    }
+    setUsersExpanded(!usersExpanded)
+  }
+
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+    })
+  }
+
+  const getStatusBadgeColor = (status: string) => {
+    switch (status) {
+      case 'pro':
+        return 'bg-yellow-500/20 text-yellow-500'
+      case 'trial':
+        return 'bg-blue-500/20 text-blue-500'
+      case 'expired':
+        return 'bg-red-500/20 text-red-500'
+      default:
+        return 'bg-gray-500/20 text-gray-500'
     }
   }
 
@@ -235,6 +320,116 @@ export default function AdminPage() {
               </Link>
             </div>
           </CardContent>
+        </Card>
+
+        {/* Users Management */}
+        <Card>
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle>All Users</CardTitle>
+                <CardDescription>Manage user subscriptions and view activity</CardDescription>
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={toggleUsersExpanded}
+                disabled={loadingUsers}
+              >
+                {loadingUsers ? (
+                  <div className="inline-block animate-spin rounded-full h-4 w-4 border-b-2 border-primary"></div>
+                ) : usersExpanded ? (
+                  <>
+                    <ChevronUp className="h-4 w-4 mr-2" />
+                    Collapse
+                  </>
+                ) : (
+                  <>
+                    <ChevronDown className="h-4 w-4 mr-2" />
+                    Expand
+                  </>
+                )}
+              </Button>
+            </div>
+          </CardHeader>
+          {usersExpanded && (
+            <CardContent>
+              {users.length === 0 ? (
+                <div className="text-center py-8 text-muted-foreground">
+                  No users found
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {users.map((user) => (
+                    <div
+                      key={user.id}
+                      className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-4 border rounded-lg bg-accent/50"
+                    >
+                      <div className="flex items-center gap-3 flex-1 min-w-0">
+                        {user.avatar_url ? (
+                          <Image
+                            src={user.avatar_url}
+                            alt={user.github_username}
+                            width={40}
+                            height={40}
+                            className="rounded-full"
+                          />
+                        ) : (
+                          <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <Users className="h-5 w-5 text-primary" />
+                          </div>
+                        )}
+                        <div className="flex-1 min-w-0">
+                          <p className="font-semibold truncate">{user.github_username}</p>
+                          <p className="text-sm text-muted-foreground truncate">{user.email}</p>
+                          <div className="flex items-center gap-2 mt-1 flex-wrap">
+                            <span className={`text-xs px-2 py-1 rounded-full ${getStatusBadgeColor(user.subscription_status)}`}>
+                              {user.subscription_status.toUpperCase()}
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              {user.changelog_count} changelogs
+                            </span>
+                            <span className="text-xs text-muted-foreground">
+                              Joined {formatDate(user.created_at)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex gap-2 w-full sm:w-auto">
+                        <Button
+                          size="sm"
+                          variant={user.subscription_status === 'trial' ? 'default' : 'outline'}
+                          onClick={() => updateUserSubscription(user.id, 'trial')}
+                          disabled={updatingUserId === user.id || user.subscription_status === 'trial'}
+                          className="flex-1 sm:flex-none"
+                        >
+                          Trial
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={user.subscription_status === 'pro' ? 'default' : 'outline'}
+                          onClick={() => updateUserSubscription(user.id, 'pro')}
+                          disabled={updatingUserId === user.id || user.subscription_status === 'pro'}
+                          className="flex-1 sm:flex-none"
+                        >
+                          Pro
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={user.subscription_status === 'expired' ? 'default' : 'outline'}
+                          onClick={() => updateUserSubscription(user.id, 'expired')}
+                          disabled={updatingUserId === user.id || user.subscription_status === 'expired'}
+                          className="flex-1 sm:flex-none"
+                        >
+                          Expired
+                        </Button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </CardContent>
+          )}
         </Card>
       </div>
     </div>
