@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Sparkles } from 'lucide-react'
+import Image from 'next/image'
 
 export function Footer() {
   const currentYear = new Date().getFullYear()
@@ -11,7 +11,7 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1">
             <Link href="/" className="flex items-center gap-2 hover:opacity-80 mb-3">
-              <Sparkles className="h-5 w-5" />
+              <Image src="/shipnotes-icon.png" alt="ShipNotes" width={20} height={20} />
               <span className="font-bold">ShipNotes</span>
             </Link>
             <p className="text-sm text-muted-foreground">
@@ -94,7 +94,7 @@ export function Footer() {
           <p>© {currentYear} dpop Studios. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <a
-              href="https://x.com/dpopstudios"
+              href="https://x.com/ShipNotesXYZ"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-foreground transition-colors"

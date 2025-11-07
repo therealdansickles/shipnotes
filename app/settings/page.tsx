@@ -3,7 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
-import { Sparkles, ArrowLeft, Trash2, Crown, AlertTriangle } from 'lucide-react'
+import Image from 'next/image'
+import { ArrowLeft, Trash2, Crown, AlertTriangle } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { UpgradeButton } from '@/components/ui/upgrade-button'
@@ -95,7 +96,7 @@ export default function SettingsPage() {
             <span className="text-sm sm:text-base">Back to Dashboard</span>
           </Link>
           <Link href="/" className="flex items-center gap-1 sm:gap-2">
-            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+            <Image src="/shipnotes-icon.png" alt="ShipNotes" width={24} height={24} className="h-5 w-5 sm:h-6 sm:w-6" />
             <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
           </Link>
         </div>

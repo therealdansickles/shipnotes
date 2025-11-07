@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { Sparkles } from 'lucide-react'
+import Image from 'next/image'
 
 export const metadata = {
   title: 'Terms of Service - ShipNotes',
@@ -13,7 +13,7 @@ export default function TermsPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6 sm:mb-8">
           <Link href="/" className="flex items-center gap-1 sm:gap-2 hover:opacity-80">
-            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+            <Image src="/shipnotes-icon.png" alt="ShipNotes" width={24} height={24} className="h-5 w-5 sm:h-6 sm:w-6" />
             <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
           </Link>
         </div>

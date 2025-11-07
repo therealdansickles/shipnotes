@@ -5,8 +5,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { UpgradeButton } from '@/components/ui/upgrade-button'
-import { Sparkles, Star, GitBranch, Clock, Search, Crown } from 'lucide-react'
+import { Star, GitBranch, Clock, Search, Crown } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 type Repo = {
   id: number
@@ -99,7 +100,7 @@ export default function Dashboard() {
         {/* Header */}
         <div className="flex justify-between items-center mb-6 sm:mb-8">
           <Link href="/" className="flex items-center gap-2 hover:opacity-80">
-            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+            <Image src="/shipnotes-icon.png" alt="ShipNotes" width={24} height={24} className="h-5 w-5 sm:h-6 sm:w-6" />
             <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
           </Link>
           <div className="flex items-center gap-2 sm:gap-3">

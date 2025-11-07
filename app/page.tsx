@@ -7,6 +7,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { UpgradeButton } from "@/components/ui/upgrade-button"
 import { Github, Sparkles, FileText, Zap, Clock, TrendingUp } from "lucide-react"
 import Link from "next/link"
+import Image from "next/image"
 
 export default function LandingPage() {
   const router = useRouter()
@@ -43,10 +44,10 @@ export default function LandingPage() {
       <div className="container mx-auto px-4 py-16 max-w-6xl">
         {/* Header */}
         <nav className="flex justify-between items-center mb-12 sm:mb-20">
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+          <Link href="/" className="flex items-center gap-2">
+            <Image src="/shipnotes-icon.png" alt="ShipNotes" width={24} height={24} className="h-5 w-5 sm:h-6 sm:w-6" />
             <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
-          </div>
+          </Link>
           <div className="flex items-center gap-3">
             <Link href="/support" className="text-sm text-muted-foreground hover:text-foreground hidden sm:block">
               Support
@@ -288,7 +289,7 @@ export default function LandingPage() {
                     <span>Priority support</span>
                   </li>
                 </ul>
-                <UpgradeButton className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 border-0" showIcon={false} />
+                <UpgradeButton variant="outline" className="w-full border-2" showIcon={false} />
               </CardContent>
             </Card>
           </div>

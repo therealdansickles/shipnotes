@@ -5,8 +5,9 @@ import { useParams, useRouter } from 'next/navigation'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { UpgradeButton } from '@/components/ui/upgrade-button'
-import { Sparkles, ArrowLeft, GitCommit, Copy, Download, Check, Crown } from 'lucide-react'
+import { ArrowLeft, GitCommit, Copy, Download, Check, Crown } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 
 type Commit = {
   sha: string
@@ -153,7 +154,7 @@ export default function RepoPage() {
             <span className="text-sm sm:text-base">Back to Dashboard</span>
           </Link>
           <Link href="/" className="flex items-center gap-1 sm:gap-2">
-            <Sparkles className="h-5 w-5 sm:h-6 sm:w-6" />
+            <Image src="/shipnotes-icon.png" alt="ShipNotes" width={24} height={24} className="h-5 w-5 sm:h-6 sm:w-6" />
             <span className="text-lg sm:text-xl font-bold">ShipNotes</span>
           </Link>
         </div>
