@@ -11,6 +11,8 @@ import Image from 'next/image'
 type AdminStats = {
   totalUsers: number
   totalChangelogs: number
+  indieUsers: number
+  starterUsers: number
   proUsers: number
   freeUsers: number
   changelogsToday: number
@@ -23,7 +25,7 @@ type UserData = {
   github_username: string
   email: string
   avatar_url?: string
-  subscription_status: 'trial' | 'starter' | 'pro' | 'expired'
+  subscription_status: 'trial' | 'indie' | 'starter' | 'pro' | 'expired'
   created_at: string
   changelog_count: number
 }
@@ -88,7 +90,7 @@ export default function AdminPage() {
     }
   }
 
-  const updateUserSubscription = async (userId: string, newStatus: 'trial' | 'starter' | 'pro' | 'expired') => {
+  const updateUserSubscription = async (userId: string, newStatus: 'trial' | 'indie' | 'starter' | 'pro' | 'expired') => {
     setUpdatingUserId(userId)
     try {
       const response = await fetch(`/api/admin/users/${userId}`, {
@@ -137,6 +139,8 @@ export default function AdminPage() {
         return 'bg-yellow-500/20 text-yellow-500'
       case 'starter':
         return 'bg-green-500/20 text-green-500'
+      case 'indie':
+        return 'bg-purple-500/20 text-purple-500'
       case 'trial':
         return 'bg-blue-500/20 text-blue-500'
       case 'expired':
@@ -224,7 +228,7 @@ export default function AdminPage() {
             <CardContent>
               <div className="text-2xl font-bold">{stats?.totalUsers || 0}</div>
               <p className="text-xs text-muted-foreground mt-1">
-                {stats?.proUsers || 0} Pro • {stats?.freeUsers || 0} Free
+                {stats?.proUsers || 0} Pro • {stats?.starterUsers || 0} Starter • {stats?.indieUsers || 0} Indie • {stats?.freeUsers || 0} Free
               </p>
             </CardContent>
           </Card>
@@ -248,9 +252,15 @@ export default function AdminPage() {
               <Crown className="h-4 w-4 text-yellow-500" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats?.proUsers || 0}</div>
+              <div className="text-2xl font-bold">
+                {(stats?.indieUsers || 0) + (stats?.starterUsers || 0) + (stats?.proUsers || 0)}
+              </div>
               <p className="text-xs text-muted-foreground mt-1">
-                ${((stats?.proUsers || 0) * 29).toLocaleString()} MRR
+                ${(
+                  (stats?.indieUsers || 0) * 15 +
+                  (stats?.starterUsers || 0) * 29 +
+                  (stats?.proUsers || 0) * 49
+                ).toLocaleString()} MRR
               </p>
             </CardContent>
           </Card>
@@ -406,6 +416,15 @@ export default function AdminPage() {
                           className="flex-1 sm:flex-none"
                         >
                           Trial
+                        </Button>
+                        <Button
+                          size="sm"
+                          variant={user.subscription_status === 'indie' ? 'default' : 'outline'}
+                          onClick={() => updateUserSubscription(user.id, 'indie')}
+                          disabled={updatingUserId === user.id || user.subscription_status === 'indie'}
+                          className="flex-1 sm:flex-none"
+                        >
+                          Indie
                         </Button>
                         <Button
                           size="sm"

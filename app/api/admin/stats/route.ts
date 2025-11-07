@@ -42,13 +42,26 @@ export async function GET(request: NextRequest) {
       .from('users')
       .select('*', { count: 'exact', head: true })
 
+    // Indie users
+    const { count: indieUsers } = await supabase
+      .from('users')
+      .select('*', { count: 'exact', head: true })
+      .eq('subscription_status', 'indie')
+
+    // Starter users
+    const { count: starterUsers } = await supabase
+      .from('users')
+      .select('*', { count: 'exact', head: true })
+      .eq('subscription_status', 'starter')
+
     // Pro users
     const { count: proUsers } = await supabase
       .from('users')
       .select('*', { count: 'exact', head: true })
       .eq('subscription_status', 'pro')
 
-    const freeUsers = (totalUsers || 0) - (proUsers || 0)
+    const paidUsers = (indieUsers || 0) + (starterUsers || 0) + (proUsers || 0)
+    const freeUsers = (totalUsers || 0) - paidUsers
 
     // Total changelogs
     const { count: totalChangelogs } = await supabase
@@ -87,6 +100,8 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({
       totalUsers: totalUsers || 0,
       totalChangelogs: totalChangelogs || 0,
+      indieUsers: indieUsers || 0,
+      starterUsers: starterUsers || 0,
       proUsers: proUsers || 0,
       freeUsers,
       changelogsToday: changelogsToday || 0,
