@@ -314,7 +314,7 @@ export default function LandingPage() {
                     <span>Custom date ranges</span>
                   </li>
                 </ul>
-                <UpgradeButton className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 border-0" showIcon={false} text="Upgrade to Starter" />
+                <UpgradeButton className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold shadow-lg hover:shadow-xl transition-all duration-200 border-0" showIcon={false} text="Upgrade to Starter" plan="starter" />
               </CardContent>
             </Card>
 
@@ -343,7 +343,7 @@ export default function LandingPage() {
                     <span className="text-muted-foreground/60">Coming: Slack/Discord</span>
                   </li>
                 </ul>
-                <UpgradeButton className="w-full" showIcon={false} text="Upgrade to Pro" />
+                <UpgradeButton className="w-full" showIcon={false} text="Upgrade to Pro" plan="pro" />
               </CardContent>
             </Card>
           </div>

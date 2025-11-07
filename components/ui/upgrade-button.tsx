@@ -8,6 +8,7 @@ interface UpgradeButtonProps {
   className?: string
   showIcon?: boolean
   text?: string
+  plan?: 'starter' | 'pro'
 }
 
 export function UpgradeButton({
@@ -16,8 +17,11 @@ export function UpgradeButton({
   className = '',
   showIcon = true,
   text = 'Upgrade to Pro',
+  plan = 'pro',
 }: UpgradeButtonProps) {
-  const paymentLink = process.env.NEXT_PUBLIC_STRIPE_PRO_PAYMENT_LINK || ''
+  const paymentLink = plan === 'starter'
+    ? process.env.NEXT_PUBLIC_STRIPE_STARTER_PAYMENT_LINK || ''
+    : process.env.NEXT_PUBLIC_STRIPE_PRO_PAYMENT_LINK || ''
 
   return (
     <Link href={paymentLink} target="_blank" rel="noopener noreferrer">
