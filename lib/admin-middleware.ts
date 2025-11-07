@@ -4,7 +4,7 @@ import { getUser, isAdmin } from './supabase'
 
 export async function requireAdmin(req: NextRequest) {
   try {
-    const cookieStore = cookies()
+    const cookieStore = await cookies()
     const userIdCookie = cookieStore.get('userId')
 
     if (!userIdCookie) {
