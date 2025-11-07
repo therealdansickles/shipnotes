@@ -26,7 +26,11 @@ export async function GET(request: NextRequest) {
     // Check if user is admin
     const isAdmin = ADMIN_EMAILS.includes(user.email)
     if (!isAdmin) {
-      return NextResponse.json({ error: 'Forbidden - Admin access only' }, { status: 403 })
+      return NextResponse.json({
+        error: 'Forbidden - Admin access only',
+        userEmail: user.email,
+        adminEmails: ADMIN_EMAILS
+      }, { status: 403 })
     }
 
     const supabase = getSupabase()

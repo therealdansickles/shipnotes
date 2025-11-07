@@ -23,6 +23,8 @@ export default function AdminPage() {
   const [stats, setStats] = useState<AdminStats | null>(null)
   const [loading, setLoading] = useState(true)
   const [isAdmin, setIsAdmin] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+  const [debugInfo, setDebugInfo] = useState<any>(null)
 
   useEffect(() => {
     fetchAdminStats()
@@ -38,7 +40,9 @@ export default function AdminPage() {
       }
 
       if (response.status === 403) {
-        router.push('/dashboard')
+        const data = await response.json()
+        setError('You do not have admin access')
+        setDebugInfo(data)
         return
       }
 
@@ -49,6 +53,7 @@ export default function AdminPage() {
       }
     } catch (error) {
       console.error('Error fetching admin stats:', error)
+      setError('Failed to load admin data')
     } finally {
       setLoading(false)
     }
@@ -58,6 +63,45 @@ export default function AdminPage() {
     return (
       <div className="min-h-screen dark flex items-center justify-center">
         <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen dark flex items-center justify-center p-4">
+        <Card className="max-w-2xl w-full">
+          <CardHeader>
+            <CardTitle className="text-red-500">Admin Access Denied</CardTitle>
+            <CardDescription>{error}</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            {debugInfo && (
+              <div className="space-y-2">
+                <div>
+                  <p className="text-sm font-semibold">Your Email:</p>
+                  <p className="text-sm text-muted-foreground font-mono bg-accent p-2 rounded">
+                    {debugInfo.userEmail || 'Not found'}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-sm font-semibold">Required Admin Emails:</p>
+                  <div className="text-sm text-muted-foreground font-mono bg-accent p-2 rounded">
+                    {debugInfo.adminEmails?.map((email: string) => (
+                      <div key={email}>{email}</div>
+                    ))}
+                  </div>
+                </div>
+                <p className="text-xs text-muted-foreground mt-4">
+                  Make sure your GitHub email matches one of the admin emails above.
+                </p>
+              </div>
+            )}
+            <Link href="/dashboard">
+              <Button className="w-full">Go to Dashboard</Button>
+            </Link>
+          </CardContent>
+        </Card>
       </div>
     )
   }
